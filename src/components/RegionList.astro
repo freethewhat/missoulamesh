@@ -1,0 +1,8 @@
+---
+import { settings } from '../lib/data.js';
+---
+<ul>
+  {settings.regions.map((r) => (
+    <li><code>{r.name}</code>{r.parent ? <> (inside <code>{r.parent}</code>)</> : ' (all of Montana)'}</li>
+  ))}
+</ul>

@@ -1,0 +1,26 @@
+---
+import { repeaters } from '../lib/data.js';
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+const label = { testing: 'Testing', 'on-air': 'On the air', down: 'Down', unknown: 'Status unknown' };
+---
+<mm-repeaters>
+  {repeaters.length === 0 ? (
+    <p>No repeaters are listed yet.</p>
+  ) : (
+    <ul class="mm-repeaters">
+      {repeaters.map((r) => (
+        <li data-last-checked={r.lastChecked} data-status={r.status}>
+          <span class="mm-area">{r.area}</span>
+          <span class={`mm-tag mm-tag--${r.status}`} data-tag>{label[r.status]}</span>
+          <span class="mm-checked">Last checked {r.lastChecked}</span>
+          {!compact && r.name && <span>Name: <code>{r.name}</code></span>}
+          {!compact && r.notes && <p class="mm-notes">{r.notes}</p>}
+        </li>
+      ))}
+    </ul>
+  )}
+</mm-repeaters>
+<script>
+  import '../scripts/stale-status.js';
+</script>

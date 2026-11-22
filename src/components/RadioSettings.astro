@@ -1,0 +1,18 @@
+---
+import { Code } from '@astrojs/starlight/components';
+import { settings } from '../lib/data.js';
+import { radioCli } from '../lib/radio.js';
+const r = settings.radio;
+---
+<table>
+  <thead><tr><th scope="col">Setting</th><th scope="col">Value</th><th scope="col">What it means</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Preset</th><td>{r.presetName}</td><td>Pick this name in the MeshCore app. It sets everything below for you.</td></tr>
+    <tr><th scope="row">Frequency</th><td>{r.frequencyMHz} MHz</td><td>The radio channel everyone listens on.</td></tr>
+    <tr><th scope="row">Bandwidth</th><td>{r.bandwidthKHz} kHz</td><td>How wide the signal is. Must match.</td></tr>
+    <tr><th scope="row">Spreading factor</th><td>{r.spreadingFactor}</td><td>Trades speed for range. Must match.</td></tr>
+    <tr><th scope="row">Coding rate</th><td>{r.codingRate}</td><td>Extra error checking. Can differ, but keep it the same.</td></tr>
+  </tbody>
+</table>
+<p>On a repeater, you can set all of this with one command:</p>
+<Code code={radioCli(r)} lang="sh" />
