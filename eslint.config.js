@@ -9,7 +9,7 @@ export default [
     languageOptions: { ecmaVersion: 'latest', sourceType: 'module', globals: { ...globals.node } },
   },
   {
-    files: ['src/scripts/**/*.js'],
+    files: ['src/scripts/**/*.js', 'tests/e2e/**/*.js'],
     languageOptions: { globals: { ...globals.browser } },
   },
 ];
