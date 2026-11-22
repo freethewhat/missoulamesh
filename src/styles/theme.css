@@ -170,7 +170,7 @@ h1#_top,
   border: 2px solid var(--mm-forest);
 }
 .mm-buttons a.mm-primary { background: var(--mm-forest); color: var(--sl-color-black); }
-.mm-buttons a.mm-secondary { color: var(--mm-forest); background: transparent; }
+.mm-buttons a.mm-secondary { color: var(--mm-forest); background: var(--mm-paper); }
 .mm-buttons a:focus-visible { outline: 3px solid var(--mm-rust); outline-offset: 2px; }
 
 /* Contact form. */
