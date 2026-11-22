@@ -30,8 +30,8 @@ test('honeypot field exists, hidden from keyboard and autofill', () => {
   assert.match(html(), /<input[^>]+name="website"[^>]+tabindex="-1"[^>]+autocomplete="off"/);
 });
 
-test('ts field exists', () => {
-  assert.match(html(), /<input[^>]+type="hidden"[^>]+name="ts"/);
+test('elapsed field exists', () => {
+  assert.match(html(), /<input[^>]+type="hidden"[^>]+name="elapsed"/);
 });
 
 test('contact and error pages show the fallback email', () => {

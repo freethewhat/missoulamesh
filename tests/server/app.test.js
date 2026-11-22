@@ -23,7 +23,7 @@ async function withServer(opts, fn) {
   try { return await fn(base); } finally { await new Promise((r) => server.close(r)); }
 }
 
-const form = (over = {}) => new URLSearchParams({ name: 'Pat', email: 'pat@example.com', role: 'new', message: 'Hello', website: '', ts: '', ...over }).toString();
+const form = (over = {}) => new URLSearchParams({ name: 'Pat', email: 'pat@example.com', role: 'new', message: 'Hello', website: '', elapsed: '', ...over }).toString();
 const post = (base, body, headers = {}) => fetch(`${base}/api/contact`, {
   method: 'POST', redirect: 'manual', body, headers: { 'Content-Type': 'application/x-www-form-urlencoded', ...headers },
 });

@@ -25,3 +25,4 @@ test('repeaters page invites valley operators to the contact page', () => {
 test('repeater list is wrapped in the mm-repeaters element that runs the stale check', () => {
   assert.match(readPage('/repeaters/'), /<mm-repeaters[\s>]/);
 });
+

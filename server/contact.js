@@ -6,13 +6,16 @@ const MIN_FILL_MS = 3000;
 
 const str = (v) => (typeof v === 'string' ? v.trim() : null);
 
+// eslint-disable-next-line no-unused-vars
 export function parseContact(body, nowMs) {
   const b = body && typeof body === 'object' ? body : {};
   const honeypot = typeof b.website === 'string' ? b.website : '';
   if (honeypot.trim() !== '') return { ok: false, reason: 'spam' };
 
-  const ts = typeof b.ts === 'string' && b.ts.trim() !== '' ? Number(b.ts) : null;
-  if (ts !== null && Number.isFinite(ts) && nowMs - ts < MIN_FILL_MS) return { ok: false, reason: 'spam' };
+  // Milliseconds the visitor spent on the page, measured in the browser (one clock, so clock skew cannot matter).
+  // Empty when JavaScript is off: then the check is skipped.
+  const elapsed = typeof b.elapsed === 'string' && b.elapsed.trim() !== '' ? Number(b.elapsed) : null;
+  if (elapsed !== null && Number.isFinite(elapsed) && elapsed < MIN_FILL_MS) return { ok: false, reason: 'spam' };
 
   const name = str(b.name);
   const email = str(b.email);

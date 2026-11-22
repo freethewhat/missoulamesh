@@ -50,3 +50,18 @@ test('missing destination throws without calling fetch', async () => {
   await assert.rejects(createResendSender({ apiKey: 'k', from: 'f', to: undefined, fetchImpl: f })(msg));
   assert.equal(f.calls.length, 0);
 });
+
+test('a Resend call that hangs times out and throws', async () => {
+  const hanging = (url, init) => new Promise((resolve, reject) => {
+    init.signal?.addEventListener('abort', () => reject(init.signal.reason));
+  });
+  const send = createResendSender({ apiKey: 'k', from: 'f', to: 't', fetchImpl: hanging, timeoutMs: 50 });
+  const keepAlive = setTimeout(() => {}, 5000); // AbortSignal.timeout's timer is unref'd; a live server keeps the loop up.
+  const started = Date.now();
+  try {
+    await assert.rejects(send(msg));
+    assert.ok(Date.now() - started < 2000);
+  } finally {
+    clearTimeout(keepAlive);
+  }
+});

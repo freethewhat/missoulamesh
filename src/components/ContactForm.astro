@@ -25,10 +25,14 @@
     <label for="mm-website">Leave this empty</label>
     <input id="mm-website" name="website" type="text" tabindex="-1" autocomplete="off" />
   </div>
-  <input type="hidden" name="ts" value="" data-mm-ts />
+  <input type="hidden" name="elapsed" value="" data-mm-elapsed />
   <p><button type="submit">Send message</button></p>
 </form>
 <script>
-  const ts = document.querySelector<HTMLInputElement>('[data-mm-ts]');
-  if (ts) ts.value = String(Date.now());
+  // Time spent on the page, from one clock (the browser's), set when the form is sent.
+  const loaded = performance.now();
+  const field = document.querySelector<HTMLInputElement>('[data-mm-elapsed]');
+  field?.form?.addEventListener('submit', () => {
+    field.value = String(Math.round(performance.now() - loaded));
+  });
 </script>

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { parseContact } from '../../server/contact.js';
 
 const NOW = 1_800_000_000_000;
-const good = { name: 'Pat', email: 'pat@example.com', role: 'new', message: 'Hi there', website: '', ts: '' };
+const good = { name: 'Pat', email: 'pat@example.com', role: 'new', message: 'Hi there', website: '', elapsed: '' };
 const run = (over) => parseContact({ ...good, ...over }, NOW);
 
 test('valid form is ok', () => {
@@ -24,7 +24,11 @@ test('message over 5000 chars is invalid', () => { assert.equal(run({ message: '
 test('missing fields are invalid', () => { assert.equal(parseContact({}, NOW).reason, 'invalid'); });
 test('array field values are invalid', () => { assert.equal(run({ name: ['a', 'b'] }).reason, 'invalid'); });
 test('filled honeypot is spam', () => { assert.equal(run({ website: 'http://spam' }).reason, 'spam'); });
-test('submitted 1 second after load is spam', () => { assert.equal(run({ ts: String(NOW - 1000) }).reason, 'spam'); });
-test('submitted 5 seconds after load is ok', () => { assert.equal(run({ ts: String(NOW - 5000) }).ok, true); });
-test('empty ts (JavaScript off) is ok', () => { assert.equal(run({ ts: '' }).ok, true); });
-test('missing ts is ok', () => { const b = { ...good }; delete b.ts; assert.equal(parseContact(b, NOW).ok, true); });
+test('submitted 1 second after load is spam', () => { assert.equal(run({ elapsed: '1000' }).reason, 'spam'); });
+test('submitted 5 seconds after load is ok', () => { assert.equal(run({ elapsed: '5000' }).ok, true); });
+test('empty elapsed (JavaScript off) is ok', () => { assert.equal(run({ elapsed: '' }).ok, true); });
+test('missing elapsed is ok', () => { const b = { ...good }; delete b.elapsed; assert.equal(parseContact(b, NOW).ok, true); });
+test('time check does not depend on the server clock (visitor clock 2 minutes fast)', () => {
+  // Old design compared the browser's Date.now() to the server's; a fast clock looked like an instant submit.
+  assert.equal(parseContact({ ...good, elapsed: '60000' }, NOW - 120_000).ok, true);
+});
