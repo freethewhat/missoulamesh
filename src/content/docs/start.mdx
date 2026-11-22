@@ -1,5 +1,38 @@
 ---
 title: I just got a device
+description: Get a MeshCore device on the Missoula mesh, step by step.
 ---
+import UntestedNote from '../../components/UntestedNote.astro';
+import { Code } from '@astrojs/starlight/components';
+import { settings } from '../../lib/data.js';
 
-Placeholder.
+<UntestedNote />
+
+This takes about 15 minutes. You will set up a **companion**: the MeshCore device you pair with your phone.
+
+<ol class="mm-steps">
+  <li>
+    **What you need.** A MeshCore-compatible radio, a phone with the MeshCore app, and a computer with Chrome or Edge.
+  </li>
+  <li>
+    **Check the repeater list.** A **repeater** is a radio, often up high, that passes messages along. Look at the [repeater list](/repeaters/) to see if one is near you.
+    If none is near you: try from high ground, or use the [contact form](/contact/) to tell us where you are. You could also host a repeater yourself.
+  </li>
+  <li>
+    **Flash the companion firmware.** To **flash** means to put new software on the radio. Plug the radio into your computer. Open [flasher.meshcore.io](https://flasher.meshcore.io/) in Chrome or Edge. Pick your device, then pick the "Companion" firmware.
+  </li>
+  <li>
+    **Pair the app and set the radio.** Open the MeshCore app and connect to your radio over Bluetooth. In the radio settings, choose the preset **{settings.radio.presetName}**. Set the path hash size to **2-byte**. Leave the default region scope blank.
+  </li>
+  <li>
+    **Join the Missoula channel.** Add the channel <code>#missoula</code> in the app. Type it with the `#`.
+  </li>
+  <li>
+    **Say hello.** Send a short message on <code>#missoula</code>. Wait a few minutes and look for a reply. If you see one, you are on the mesh.
+  </li>
+  <li>
+    **Stuck?** Use the [contact form](/contact/) and tell us what you see. We will help.
+  </li>
+</ol>
+
+All the local settings are on the [settings page](/settings/).

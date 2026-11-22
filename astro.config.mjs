@@ -12,6 +12,7 @@ export default defineConfig({
       logo: { light: './src/assets/badge-light.svg', dark: './src/assets/badge-dark.svg', alt: '' },
       favicon: '/favicon.svg',
       customCss: ['./src/styles/theme.css'],
+      components: { Hero: './src/components/HomeHero.astro' },
       description: 'Western Montana MeshCore: off-grid text messages, built by neighbors in the Missoula Valley.',
       plugins: [starlightLinksValidator()],
       sidebar: [
