@@ -26,8 +26,8 @@ deploy_new() {
   IMAGE_TAG="$TAG" docker compose pull || return 1
   set_tag "$TAG"
   docker compose up -d || return 1
-  local streak=0 i
-  for i in $(seq 1 15); do
+  local streak=0
+  for _ in $(seq 1 15); do
     if healthy; then streak=$((streak + 1)); else streak=0; fi
     [ "$streak" -ge 2 ] && return 0
     sleep "${HEALTH_SLEEP:-3}"
