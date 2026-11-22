@@ -187,3 +187,6 @@ h1#_top,
 }
 .mm-form button:focus-visible { outline: 3px solid var(--mm-rust); outline-offset: 2px; }
 .mm-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+/* WCAG 2.5.3: the search button's visible text must match its name ("Search"). */
+button[data-open-modal] kbd { display: none; }
