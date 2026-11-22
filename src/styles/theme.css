@@ -1,0 +1,163 @@
+/* Missoula Mesh "trail map" theme. Contrast checked for WCAG 2.2 AA. */
+/* Dark is Starlight's default (:root); light overrides below. */
+:root {
+  --mm-heading-font: Georgia, 'Times New Roman', serif;
+  --mm-paper: #1b2a20;
+  --mm-ink: #f4efe3;
+  --mm-forest: #7fa98a;
+  --mm-rust: #e58a5c;
+  --mm-rust-text: #e58a5c;
+  --mm-line: #34483a;
+  --mm-muted: #b9c4b4;
+  --mm-note-bg: #2a2a1f;
+  --mm-tag-text: #1b2a20;
+
+  --sl-color-white: #f4efe3;
+  --sl-color-gray-1: #e4ddcc;
+  --sl-color-gray-2: #d0cab9;
+  --sl-color-gray-3: #b9c4b4;
+  --sl-color-gray-4: #7f8a7c;
+  --sl-color-gray-5: #34483a;
+  --sl-color-gray-6: #233528;
+  --sl-color-black: #1b2a20;
+  --sl-color-accent-low: #2c4a35;
+  --sl-color-accent: #7fa98a;
+  --sl-color-accent-high: #9cc5a6;
+}
+
+:root[data-theme='light'] {
+  --mm-paper: #f4efe3;
+  --mm-ink: #2b2a24;
+  --mm-forest: #24452f;
+  --mm-rust: #b5562a;
+  --mm-rust-text: #9a4520;
+  --mm-line: #d8cfb8;
+  --mm-muted: #5c5848;
+  --mm-note-bg: #fbe9dc;
+  --mm-tag-text: #ffffff;
+
+  --sl-color-white: #2b2a24;
+  --sl-color-gray-1: #3a382f;
+  --sl-color-gray-2: #2b2a24;
+  --sl-color-gray-3: #5c5848;
+  --sl-color-gray-4: #8a8370;
+  --sl-color-gray-5: #d8cfb8;
+  --sl-color-gray-6: #ebe4d3;
+  --sl-color-gray-7: #f0eadc;
+  --sl-color-black: #f4efe3;
+  --sl-color-accent-low: #d6e3d4;
+  --sl-color-accent: #3d6b4b;
+  --sl-color-accent-high: #24452f;
+}
+
+/* Type: serif headings, system sans body (Starlight default). */
+.sl-markdown-content :is(h1, h2, h3, h4),
+h1#_top,
+.site-title,
+.mm-hero h1 {
+  font-family: var(--mm-heading-font);
+}
+.site-title { color: var(--mm-ink); }
+
+/* Note box: "not yet tested locally". */
+.mm-note {
+  background: var(--mm-note-bg);
+  border-inline-start: 4px solid var(--mm-rust);
+  padding: 0.75rem 1rem;
+  border-radius: 0 0.25rem 0.25rem 0;
+  color: var(--mm-ink);
+}
+.mm-note strong { color: var(--mm-rust-text); }
+
+/* Repeater status tags. */
+.mm-tag {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.25rem;
+  color: var(--mm-tag-text);
+  background: var(--mm-forest);
+}
+.mm-tag--testing { background: var(--mm-rust); }
+.mm-tag--on-air { background: var(--mm-forest); }
+.mm-tag--down { background: #6b1f1f; color: #ffffff; }
+.mm-tag--unknown { background: var(--mm-muted); color: var(--sl-color-black); }
+
+/* Repeater list. */
+.mm-repeaters { list-style: none; padding: 0; margin: 1rem 0; }
+.mm-repeaters li {
+  border-top: 1px solid var(--mm-line);
+  padding: 0.75rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  align-items: baseline;
+}
+.mm-repeaters li:last-child { border-bottom: 1px solid var(--mm-line); }
+.mm-repeaters .mm-area { font-weight: 700; color: var(--mm-ink); }
+.mm-repeaters .mm-checked { color: var(--mm-muted); font-size: 0.9rem; }
+.mm-repeaters .mm-notes { flex-basis: 100%; color: var(--mm-muted); font-size: 0.9rem; margin: 0; }
+
+/* Big numbered steps. */
+.mm-steps { counter-reset: mm-step; list-style: none; padding: 0; }
+.mm-steps > li {
+  counter-increment: mm-step;
+  position: relative;
+  padding-inline-start: 3rem;
+  margin: 1.5rem 0;
+}
+.mm-steps > li::before {
+  content: counter(mm-step);
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--mm-forest);
+  color: var(--sl-color-black);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Home hero with faint topo lines and a ridge band. */
+.mm-hero {
+  background:
+    repeating-radial-gradient(circle at 80% 120%, transparent 0 22px, color-mix(in srgb, var(--mm-forest) 14%, transparent) 22px 23px),
+    var(--mm-paper);
+  padding: 3rem 1.5rem 2rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+.mm-hero h1 { color: var(--mm-forest); font-size: clamp(2rem, 6vw, 3rem); margin: 0; }
+.mm-hero .mm-tagline {
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mm-rust-text);
+  font-size: 0.85rem;
+  margin: 0.25rem 0 1rem;
+}
+.mm-hero .mm-lede { font-size: 1.2rem; color: var(--mm-ink); max-width: 36rem; }
+.mm-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+.mm-buttons a {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.4rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: 2px solid var(--mm-forest);
+}
+.mm-buttons a.mm-primary { background: var(--mm-forest); color: var(--sl-color-black); }
+.mm-buttons a.mm-secondary { color: var(--mm-forest); background: transparent; }
+.mm-buttons a:focus-visible { outline: 3px solid var(--mm-rust); outline-offset: 2px; }
+.mm-ridge {
+  height: 2.5rem;
+  background: var(--mm-forest);
+  clip-path: polygon(0 100%, 0 60%, 12% 30%, 22% 55%, 38% 10%, 52% 50%, 63% 25%, 78% 60%, 90% 35%, 100% 55%, 100% 100%);
+  margin-bottom: 1.5rem;
+}
