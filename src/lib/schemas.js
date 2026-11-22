@@ -1,0 +1,39 @@
+import { z } from 'zod';
+
+const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine((s) => {
+  const d = new Date(`${s}T00:00:00Z`);
+  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === s;
+}, 'not a real calendar date');
+
+const regionName = z.string().regex(/^[a-z0-9-]+$/).refine((s) => new TextEncoder().encode(s).length <= 29, 'max 29 bytes');
+
+export const settingsSchema = z.object({
+  tested: z.boolean(),
+  lastReviewed: isoDate,
+  radio: z.object({
+    presetName: z.string().min(1),
+    frequencyMHz: z.number().positive(),
+    bandwidthKHz: z.number().positive(),
+    spreadingFactor: z.number().int().min(5).max(12),
+    codingRate: z.number().int().min(5).max(8),
+  }),
+  pathHashMode: z.number().int().min(0).max(2),
+  regions: z.array(z.object({ name: regionName, parent: regionName.nullable() })),
+  channels: z.array(z.object({
+    name: z.string().min(1),
+    type: z.enum(['public', 'hashtag']),
+  }).refine((c) => c.type !== 'hashtag' || c.name.startsWith('#'), 'hashtag channels start with #')),
+  fccNote: z.string().min(1),
+});
+
+export const repeaterSchema = z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/),
+  name: z.string().min(1).nullable(),
+  area: z.string().min(1),
+  status: z.enum(['testing', 'on-air', 'down', 'unknown']),
+  lastChecked: isoDate,
+  contact: z.string().min(1).nullable(),
+  notes: z.string().min(1).nullable(),
+});
+
+export const repeatersSchema = z.array(repeaterSchema);
