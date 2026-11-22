@@ -2,6 +2,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { createApp } from './app.js';
 import { createResendSender } from './mailer.js';
+import { buildCsp } from './csp.js';
 
 const env = process.env;
 const distDir = resolve(env.DIST_DIR || 'dist');
@@ -20,13 +21,7 @@ const sendMail = createResendSender({
 
 const hashesFile = join(distDir, 'csp-hashes.json');
 const scriptHashes = existsSync(hashesFile) ? JSON.parse(readFileSync(hashesFile, 'utf8')).scriptHashes : [];
-let csp = '';
-try {
-  const { buildCsp } = await import('./csp.js');
-  csp = buildCsp(scriptHashes);
-} catch {
-  csp = '';
-}
+const csp = buildCsp(scriptHashes);
 
 createApp({ distDir, sendMail, csp }).listen(port, host, () => {
   console.log(`missoulamesh listening on http://${host}:${port}`);

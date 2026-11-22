@@ -13,6 +13,12 @@ export function createApp({ distDir, sendMail, csp, rateLimit: rl = { windowMs: 
 
   app.use((req, res, next) => {
     if (csp) res.set('Content-Security-Policy', csp);
+    res.set({
+      'X-Content-Type-Options': 'nosniff',
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+      'Strict-Transport-Security': 'max-age=31536000',
+    });
     next();
   });
 
