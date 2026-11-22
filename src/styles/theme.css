@@ -161,3 +161,29 @@ h1#_top,
   clip-path: polygon(0 100%, 0 60%, 12% 30%, 22% 55%, 38% 10%, 52% 50%, 63% 25%, 78% 60%, 90% 35%, 100% 55%, 100% 100%);
   margin-bottom: 1.5rem;
 }
+
+/* Contact form. */
+.mm-form label { display: block; font-weight: 700; color: var(--mm-ink); margin-bottom: 0.25rem; }
+.mm-form input[type='text'], .mm-form input[type='email'], .mm-form select, .mm-form textarea {
+  width: 100%;
+  max-width: 36rem;
+  padding: 0.5rem 0.6rem;
+  font: inherit;
+  color: var(--mm-ink);
+  background: var(--sl-color-black);
+  border: 2px solid var(--mm-muted);
+  border-radius: 0.3rem;
+}
+.mm-form :is(input, select, textarea):focus-visible { outline: 3px solid var(--mm-rust); outline-offset: 1px; }
+.mm-form button {
+  font: inherit;
+  font-weight: 700;
+  padding: 0.7rem 1.4rem;
+  border-radius: 0.4rem;
+  border: 2px solid var(--mm-forest);
+  background: var(--mm-forest);
+  color: var(--sl-color-black);
+  cursor: pointer;
+}
+.mm-form button:focus-visible { outline: 3px solid var(--mm-rust); outline-offset: 2px; }
+.mm-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }

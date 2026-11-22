@@ -1,0 +1,34 @@
+---
+---
+<form method="post" action="/api/contact" class="mm-form">
+  <p>
+    <label for="mm-name">Your name</label>
+    <input id="mm-name" name="name" type="text" maxlength="100" autocomplete="name" required />
+  </p>
+  <p>
+    <label for="mm-email">Your email</label>
+    <input id="mm-email" name="email" type="email" maxlength="254" autocomplete="email" required />
+  </p>
+  <p>
+    <label for="mm-role">I am...</label>
+    <select id="mm-role" name="role" required>
+      <option value="new">New to MeshCore</option>
+      <option value="experienced">Already using MeshCore</option>
+      <option value="other">Something else</option>
+    </select>
+  </p>
+  <p>
+    <label for="mm-message">Message</label>
+    <textarea id="mm-message" name="message" rows="6" maxlength="5000" required></textarea>
+  </p>
+  <div class="mm-hp" aria-hidden="true">
+    <label for="mm-website">Leave this empty</label>
+    <input id="mm-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+  <input type="hidden" name="ts" value="" data-mm-ts />
+  <p><button type="submit">Send message</button></p>
+</form>
+<script>
+  const ts = document.querySelector<HTMLInputElement>('[data-mm-ts]');
+  if (ts) ts.value = String(Date.now());
+</script>
