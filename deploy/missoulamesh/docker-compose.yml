@@ -1,0 +1,22 @@
+services:
+  app:
+    container_name: missoulamesh
+    image: __IMAGE__:${IMAGE_TAG}
+    # Resend key and destination address. Mode 600, root only. Never committed.
+    env_file:
+      - path: contact.env
+        required: false
+    networks:
+      - web
+    restart: unless-stopped
+    mem_limit: 128m
+    # Cap logs: at most 3 files of 10 MB each.
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  web:
+    external: true
