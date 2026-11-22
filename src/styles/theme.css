@@ -125,13 +125,30 @@ h1#_top,
   justify-content: center;
 }
 
-/* Home hero with faint topo lines and a ridge band. */
+/* Home hero: a ridgeline rising to a tall peak on the right, with radio waves spreading from the summit. */
 .mm-hero {
-  background:
-    repeating-radial-gradient(circle at 80% 120%, transparent 0 22px, color-mix(in srgb, var(--mm-forest) 14%, transparent) 22px 23px),
-    var(--mm-paper);
-  padding: 3rem 1.5rem 2rem;
-  border-radius: 0.5rem 0.5rem 0 0;
+  position: relative;
+  overflow: hidden;
+  background: var(--mm-paper);
+  padding: 3rem 1.5rem 9rem;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+}
+.mm-hero-text { position: relative; z-index: 1; max-width: 34rem; }
+.mm-hero-art {
+  position: absolute;
+  inset: auto 0 0 0;
+  width: 100%;
+  height: 8.5rem;
+  z-index: 0;
+}
+.mm-hero-art .mm-waves { stroke: var(--mm-rust); stroke-width: 3; }
+.mm-hero-art .mm-range-back { fill: var(--mm-forest); opacity: 0.35; }
+.mm-hero-art .mm-range-front { fill: var(--mm-forest); }
+.mm-hero-art .mm-summit { fill: var(--mm-rust); }
+@media (min-width: 50rem) {
+  .mm-hero { padding-bottom: 5rem; min-height: 24rem; }
+  .mm-hero-art { height: 100%; }
 }
 .mm-hero h1 { color: var(--mm-forest); font-size: clamp(2rem, 6vw, 3rem); margin: 0; }
 .mm-hero .mm-tagline {
@@ -155,12 +172,6 @@ h1#_top,
 .mm-buttons a.mm-primary { background: var(--mm-forest); color: var(--sl-color-black); }
 .mm-buttons a.mm-secondary { color: var(--mm-forest); background: transparent; }
 .mm-buttons a:focus-visible { outline: 3px solid var(--mm-rust); outline-offset: 2px; }
-.mm-ridge {
-  height: 2.5rem;
-  background: var(--mm-forest);
-  clip-path: polygon(0 100%, 0 60%, 12% 30%, 22% 55%, 38% 10%, 52% 50%, 63% 25%, 78% 60%, 90% 35%, 100% 55%, 100% 100%);
-  margin-bottom: 1.5rem;
-}
 
 /* Contact form. */
 .mm-form label { display: block; font-weight: 700; color: var(--mm-ink); margin-bottom: 0.25rem; }
