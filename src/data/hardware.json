@@ -1,0 +1,42 @@
+[
+  {
+    "id": "wio-tracker-l1-pro",
+    "name": "Seeed Wio Tracker L1 Pro",
+    "role": "companion",
+    "url": "https://www.seeedstudio.com/Wio-Tracker-L1-Pro-for-Meshcore-p-6717.html",
+    "priceUSD": 44,
+    "facts": "Screen, GPS, built-in battery, and a case. Comes with MeshCore on it, so there is nothing to flash.",
+    "triedHere": true,
+    "lastChecked": "2026-11-23"
+  },
+  {
+    "id": "sensecap-t1000-e",
+    "name": "Seeed SenseCAP T1000-E",
+    "role": "companion",
+    "url": "https://www.seeedstudio.com/SenseCAP-Card-Tracker-T1000-E-for-Meshtastic-p-5913.html",
+    "priceUSD": 39.9,
+    "facts": "Card-sized, with GPS and a built-in battery. No screen. The store page says Meshtastic, but MeshCore runs on it too. You flash MeshCore on it yourself.",
+    "triedHere": false,
+    "lastChecked": "2026-11-23"
+  },
+  {
+    "id": "heltec-v4",
+    "name": "Heltec V4 (WiFi LoRa 32 V4)",
+    "role": "companion",
+    "url": "https://heltec.org/project/wifi-lora-32-v4/",
+    "priceUSD": 30,
+    "facts": "A bare board with an antenna. Pick the 902-928 MHz option. It needs a battery and a case. No GPS. You flash MeshCore on it yourself.",
+    "triedHere": false,
+    "lastChecked": "2026-11-23"
+  },
+  {
+    "id": "sensecap-solar-p1-pro",
+    "name": "Seeed SenseCAP Solar Node P1-Pro",
+    "role": "repeater",
+    "url": "https://www.seeedstudio.com/SenseCAP-Solar-Node-P1-Pro-for-Meshcore-p-6741.html",
+    "priceUSD": 93.9,
+    "facts": "A 5 W solar panel, batteries, antenna, and GPS in one box. Comes with MeshCore repeater software on it.",
+    "triedHere": true,
+    "lastChecked": "2026-11-23"
+  }
+]

@@ -34,3 +34,17 @@ export const repeaterSchema = z.object({
 });
 
 export const repeatersSchema = z.array(repeaterSchema);
+
+// Store links must be plain: https, no query string or fragment (no affiliate tags).
+const plainUrl = z.string().url().refine((s) => s.startsWith('https://') && !/[?#]/.test(s), 'plain https URL with no query string');
+
+export const hardwareSchema = z.array(z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/),
+  name: z.string().min(1),
+  role: z.enum(['companion', 'repeater']),
+  url: plainUrl,
+  priceUSD: z.number().positive(),
+  facts: z.string().min(1),
+  triedHere: z.boolean(),
+  lastChecked: isoDate,
+}));

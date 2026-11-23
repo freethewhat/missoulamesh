@@ -25,6 +25,7 @@ export default defineConfig({
           items: [
             { label: 'FAQ', link: '/faq/' },
             { label: 'Join the mesh', link: '/start/' },
+            { label: 'What to buy', link: '/hardware/' },
             { label: 'Device settings', link: '/settings/' },
             { label: 'Repeaters', link: '/repeaters/' },
           ],

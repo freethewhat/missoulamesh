@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { settingsSchema, repeatersSchema } from '../../src/lib/schemas.js';
+import { settingsSchema, repeatersSchema, hardwareSchema } from '../../src/lib/schemas.js';
 
 const load = (f) => JSON.parse(readFileSync(new URL(`../../src/data/${f}`, import.meta.url)));
 const settings = load('settings.json');
@@ -34,4 +34,19 @@ test('unknown status is rejected', () => {
 test('missing area is rejected', () => {
   const r = clone(repeaters); delete r[0].area;
   assert.equal(repeatersSchema.safeParse(r).success, false);
+});
+
+const hardware = () => load('hardware.json');
+test('real hardware.json passes', () => { hardwareSchema.parse(hardware()); });
+test('hardware URL with a query string (affiliate tag) is rejected', () => {
+  const h = clone(hardware()); h[0].url += '?ref=x';
+  assert.equal(hardwareSchema.safeParse(h).success, false);
+});
+test('hardware role router is rejected', () => {
+  const h = clone(hardware()); h[0].role = 'router';
+  assert.equal(hardwareSchema.safeParse(h).success, false);
+});
+test('hardware Feb 30 lastChecked is rejected', () => {
+  const h = clone(hardware()); h[0].lastChecked = '2026-02-30';
+  assert.equal(hardwareSchema.safeParse(h).success, false);
 });

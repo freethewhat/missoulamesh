@@ -1,0 +1,16 @@
+---
+// Devices from hardware.json, filtered by role and by whether someone in the valley has used one.
+import { hardware } from '../lib/data.js';
+interface Props { role: 'companion' | 'repeater'; triedHere: boolean }
+const { role, triedHere } = Astro.props;
+const items = hardware.filter((d) => d.role === role && d.triedHere === triedHere);
+---
+<ul class="mm-hardware">
+  {items.map((d) => (
+    <li>
+      <a class="mm-hw-name" href={d.url}>{d.name}</a>
+      <span class="mm-hw-price">about ${Math.round(d.priceUSD)} <span class="mm-checked">(checked {d.lastChecked})</span></span>
+      <p class="mm-hw-facts">{d.facts}</p>
+    </li>
+  ))}
+</ul>
