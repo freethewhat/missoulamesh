@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readPage, pageText } from './helpers.js';
+import { readPage, pageText, mainHtml } from './helpers.js';
 import { pathHashLabel } from '../../src/lib/path-hash.js';
 import settings from '../../src/data/settings.json' with { type: 'json' };
 
@@ -21,7 +21,7 @@ test('host page takes the preset and path hash size from settings', () => {
   assert.ok(t.includes(pathHashLabel(settings.pathHashMode)), 'path hash size');
 });
 test('host page links device settings and contact', () => {
-  const h = readPage(R);
+  const h = mainHtml(R);
   assert.match(h, /href="\/settings\/"/);
   assert.match(h, /href="\/contact\/"/);
 });
@@ -46,5 +46,5 @@ test('host page gives no repeater CLI commands', () => {
   assert.doesNotMatch(pageText(R), /\bset (name|lat|lon|freq|radio)\b/);
 });
 test('hardware page links the host-a-repeater page', () => {
-  assert.match(readPage('/hardware/'), /href="\/host-a-repeater\/"/);
+  assert.match(mainHtml('/hardware/'), /href="\/host-a-repeater\/"/);
 });

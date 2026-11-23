@@ -24,3 +24,10 @@ export function pageText(route) {
     .replace(/&amp;/g, '&').replace(/&#39;|&apos;/g, "'").replace(/&quot;/g, '"')
     .replace(/\s+/g, ' ');
 }
+
+// HTML of the main content only (no menu or footer links).
+export function mainHtml(route) {
+  const m = readPage(route).match(/<main[\s\S]*?<\/main>/);
+  if (!m) throw new Error(`no <main> in ${route}`);
+  return m[0];
+}

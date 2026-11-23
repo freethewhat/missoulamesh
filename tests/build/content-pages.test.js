@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readPage, pageText } from './helpers.js';
+import { readPage, pageText, mainHtml } from './helpers.js';
 
 const link = (html, href, text) => new RegExp(`<a[^>]+href="${href.replace(/[.?]/g, '\\$&')}"[^>]*>\\s*${text.replace(/[.?]/g, '\\$&')}`).test(html);
 
@@ -47,7 +47,7 @@ test('start has 7 steps in order', () => {
   assert.ok(ol, 'mm-steps list');
   const items = ol[1].split(/<li[\s>]/).slice(1);
   assert.equal(items.length, 7);
-  const want = [/What you need/, /repeater list/, /flasher\.meshcore\.io/, /USA\/Canada \(Recommended\)/, /#missoula/, /reply/, /\/contact\//];
+  const want = [/What you need[\s\S]*\/hardware\/[\s\S]*play\.google\.com[\s\S]*apps\.apple\.com[\s\S]*app\.meshcore\.nz/, /repeater list/, /flasher\.meshcore\.io/, /USA\/Canada \(Recommended\)/, /#missoula/, /reply/, /\/help\/[\s\S]*\/contact\//];
   want.forEach((re, i) => assert.match(items[i], re, `step ${i + 1}`));
 });
 test('start says what to do when no repeater is near', () => {
@@ -91,4 +91,12 @@ test('about has email, contact link, and licenses', () => {
 
 test('home has exactly one h1', () => {
   assert.equal((readPage('/').match(/<h1[\s>]/g) || []).length, 1);
+});
+
+test('FAQ links to hardware', () => {
+  assert.match(mainHtml('/faq/'), /href="\/hardware\/"/);
+});
+test('FAQ privacy lists what not to post', () => {
+  const t = pageText('/faq/').toLowerCase();
+  for (const v of ['home address', 'away from home', 'passwords', 'phone numbers']) assert.ok(t.includes(v), v);
 });

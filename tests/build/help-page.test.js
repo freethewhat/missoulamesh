@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readPage, pageText } from './helpers.js';
+import { readPage, pageText, mainHtml } from './helpers.js';
 
 const R = '/help/';
 
@@ -18,7 +18,7 @@ test('help page has the key fixes', () => {
   for (const v of ['123456', 'Chrome or Edge', 'data', 'Advert', 'clock', 'identity']) assert.ok(t.includes(v), v);
 });
 test('help page links settings, repeaters, contact, and the MeshCore FAQ', () => {
-  const h = readPage(R);
+  const h = mainHtml(R);
   for (const href of ['/settings/', '/repeaters/', '/contact/', 'https://docs.meshcore.io/faq/']) {
     assert.match(h, new RegExp(`href="${href.replace(/[./]/g, '\\$&')}"`), href);
   }
