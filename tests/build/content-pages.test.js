@@ -41,9 +41,10 @@ test('start says what to do when no repeater is near', () => {
   const t = pageText('/start/');
   for (const v of ['contact form', 'repeater', 'high ground']) assert.ok(t.includes(v), v);
 });
-test('start sets path hash size 2-byte and blank region scope', () => {
+test('start sets path hash size from settings (1-byte) and blank region scope', () => {
   const t = pageText('/start/');
-  assert.match(t, /2-byte/);
+  assert.match(t, /1-byte/);
+  assert.doesNotMatch(t, /2-byte/);
   assert.match(t, /region scope/i);
 });
 test('start links the repeater list and flasher', () => {

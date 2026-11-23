@@ -27,3 +27,10 @@ test('settings page shows the not-yet-tested note while tested is false', () => 
 test('settings page shows the FCC note', () => {
   assert.ok(text().includes('issue #945'));
 });
+
+test('settings page shows the path hash size from settings.json (1-byte) and its command', () => {
+  const t = text();
+  assert.ok(t.includes('1-byte'), '1-byte');
+  assert.ok(t.includes('set path.hash.mode 0'), 'cli');
+  assert.ok(!t.includes('2-byte'), 'no stale 2-byte');
+});

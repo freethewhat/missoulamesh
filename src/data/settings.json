@@ -8,7 +8,7 @@
     "spreadingFactor": 7,
     "codingRate": 5
   },
-  "pathHashMode": 1,
+  "pathHashMode": 0,
   "regions": [
     { "name": "us-mt", "parent": null },
     { "name": "us-mt-mso", "parent": "us-mt" }

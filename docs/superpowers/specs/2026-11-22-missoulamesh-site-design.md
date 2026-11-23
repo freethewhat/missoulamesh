@@ -166,7 +166,7 @@ Short and friendly. It says: "Want Meshtastic? Ravalli Mesh runs a good Meshtast
 1. What you need: a MeshCore device, a phone with the MeshCore app, and Chrome or Edge on a computer for flashing.
 2. Check the repeater list. If nothing is near you, say so and give next steps (use the contact form; consider a repeater; try from high ground).
 3. Flash companion firmware with flasher.meshcore.io.
-4. Pair the app. Set the radio preset from `settings.json`. Set path hash size to 2-byte. Leave the default region scope blank.
+4. Pair the app. Set the radio preset from `settings.json`. Set path hash size from `settings.json` (1-byte). Leave the default region scope blank.
 5. Add the `#missoula` channel.
 6. Test: send a message on `#missoula` and look for a reply.
 7. Stuck? Use the contact form.
@@ -176,7 +176,7 @@ Short and friendly. It says: "Want Meshtastic? Ravalli Mesh runs a good Meshtast
 Taken from what other US MeshCore groups use. The owner will test them on a real repeater this week. The builder must check every CLI command against `docs.meshcore.io/cli_commands` before it is published.
 
 - Radio: USA/Canada (Recommended), 910.525 MHz, BW 62.5 kHz, SF 7, CR 5. CLI `set radio 910.525,62.5,7,5`.
-- Path hash mode: 2-byte (`set path.hash.mode 1`).
+- Path hash mode: **1-byte** (`set path.hash.mode 0`). Owner set the local mesh to 1-byte on 2026-11-22. Other US groups use 2-byte; revisit if repeater ID clashes appear as the mesh grows. The value lives in `settings.json` (`pathHashMode`) and every page reads it from there.
 - Repeater: admin password changed from the default; guest password blank; `advert.interval 240`; `flood.advert.interval 24`; `flood.max 32`; `agc.reset.interval 500`; `loop.detect moderate`; `owner.info` includes `missoulamesh.org`; `clock sync` after each boot.
 - Delay profiles (`set txdelay` / `set direct.txdelay` / `set rxdelay`), adapted from MichMesh and Denver:
 

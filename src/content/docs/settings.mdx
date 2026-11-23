@@ -7,6 +7,8 @@ import RadioSettings from '../../components/RadioSettings.astro';
 import ChannelTable from '../../components/ChannelTable.astro';
 import RegionList from '../../components/RegionList.astro';
 import { settings } from '../../lib/data.js';
+import { pathHashLabel, pathHashCli } from '../../lib/path-hash.js';
+import { Code } from '@astrojs/starlight/components';
 
 <UntestedNote />
 
@@ -21,8 +23,12 @@ Every MeshCore device in the valley must use the same radio settings, or they ca
 A **companion** is the MeshCore device you pair with your phone.
 
 - **Radio preset:** {settings.radio.presetName}
-- **Path hash size:** 2-byte. Find it in the app under network settings.
+- **Path hash size:** {pathHashLabel(settings.pathHashMode)}. Find it in the app under network settings. (The **path hash** is a short ID each repeater adds to a message as it passes it on.)
 - **Default region scope:** leave it blank for now. (A **region** keeps messages local. Setting one too early can cut you off from repeaters that do not have it.)
+
+On a repeater, set the same path hash size with this command:
+
+<Code code={pathHashCli(settings.pathHashMode)} lang="sh" />
 
 ## Channels
 

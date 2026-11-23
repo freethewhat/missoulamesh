@@ -5,6 +5,7 @@ description: Get a MeshCore device on the Missoula mesh, step by step.
 import UntestedNote from '../../components/UntestedNote.astro';
 import { Code } from '@astrojs/starlight/components';
 import { settings } from '../../lib/data.js';
+import { pathHashLabel } from '../../lib/path-hash.js';
 
 <UntestedNote />
 
@@ -22,7 +23,7 @@ This takes about 15 minutes. You will set up a **companion**: the MeshCore devic
     **Flash the companion firmware.** To **flash** means to put new software on the radio. Plug the radio into your computer. Open [flasher.meshcore.io](https://flasher.meshcore.io/) in Chrome or Edge. Pick your device, then pick the "Companion" firmware.
   </li>
   <li>
-    **Pair the app and set the radio.** Open the MeshCore app and connect to your radio over Bluetooth. In the radio settings, choose the preset **{settings.radio.presetName}**. Set the path hash size to **2-byte**. Leave the default region scope blank.
+    **Pair the app and set the radio.** Open the MeshCore app and connect to your radio over Bluetooth. In the radio settings, choose the preset **{settings.radio.presetName}**. Set the path hash size to **{pathHashLabel(settings.pathHashMode)}**. Leave the default region scope blank.
   </li>
   <li>
     **Join the Missoula channel.** Add the channel <code>#missoula</code> in the app. Type it with the `#`.
