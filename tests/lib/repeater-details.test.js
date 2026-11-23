@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { repeaterDetails } from '../../src/lib/repeater-details.js';
 
-const base = { id: 'x', name: null, area: 'Rattlesnake', status: 'on-air', lastChecked: '2026-11-22', contact: null, notes: null };
+const base = { id: 'x', name: null, area: 'Rattlesnake', status: 'on-air', contact: null, notes: null };
 
 test('contact is listed when set', () => {
   assert.deepEqual(repeaterDetails({ ...base, contact: 'KE7ABC on #missoula' }), [{ label: 'Contact', value: 'KE7ABC on #missoula' }]);

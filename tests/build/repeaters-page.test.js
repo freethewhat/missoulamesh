@@ -6,12 +6,11 @@ test('repeaters page lists the Lewis and Clark repeater as testing', () => {
   const html = readPage('/repeaters/');
   assert.ok(pageText('/repeaters/').includes('Lewis and Clark neighborhood'));
   assert.match(html, /mm-tag--testing/);
-  assert.match(html, /data-last-checked="2026-11-22"/);
   assert.match(html, /data-status="testing"/);
 });
 
-test('repeaters page shows the last checked date', () => {
-  assert.match(pageText('/repeaters/'), /Last checked 2026-11-22/);
+test('repeaters page shows no checked dates', () => {
+  assert.ok(!/Last checked/.test(pageText('/repeaters/')));
 });
 
 test('repeaters page says it shows areas, not exact locations', () => {
@@ -20,10 +19,6 @@ test('repeaters page says it shows areas, not exact locations', () => {
 
 test('repeaters page invites valley operators to the contact page', () => {
   assert.match(readPage('/repeaters/'), /<a href="\/contact\/"[^>]*>Run a MeshCore repeater in the valley\?/);
-});
-
-test('repeater list is wrapped in the mm-repeaters element that runs the stale check', () => {
-  assert.match(readPage('/repeaters/'), /<mm-repeaters[\s>]/);
 });
 
 
@@ -39,5 +34,5 @@ test('Franklin to the Fort repeater is listed with its name', () => {
 
 test('Franklin to the Fort repeater is on the air', () => {
   const html = readPage('/repeaters/');
-  assert.match(html, /<li data-last-checked="2026-11-22" data-status="on-air"[^>]*>\s*<span class="mm-area"[^>]*>Franklin to the Fort neighborhood/);
+  assert.match(html, /<li data-status="on-air"[^>]*>\s*<span class="mm-area"[^>]*>Franklin to the Fort neighborhood/);
 });

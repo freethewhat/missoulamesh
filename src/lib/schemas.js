@@ -28,7 +28,6 @@ export const repeaterSchema = z.object({
   name: z.string().min(1).nullable(),
   area: z.string().min(1),
   status: z.enum(['testing', 'on-air', 'down', 'unknown']),
-  lastChecked: isoDate,
   contact: z.string().min(1).nullable(),
   notes: z.string().min(1).nullable(),
 });

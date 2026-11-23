@@ -19,14 +19,6 @@ test('spreading factor 13 is rejected', () => {
   const s = clone(settings); s.radio.spreadingFactor = 13;
   assert.equal(settingsSchema.safeParse(s).success, false);
 });
-test('impossible lastChecked date is rejected', () => {
-  const r = clone(repeaters); r[0].lastChecked = '2026-13-40';
-  assert.equal(repeatersSchema.safeParse(r).success, false);
-});
-test('Feb 30 lastChecked is rejected', () => {
-  const r = clone(repeaters); r[0].lastChecked = '2026-02-30';
-  assert.equal(repeatersSchema.safeParse(r).success, false);
-});
 test('unknown status is rejected', () => {
   const r = clone(repeaters); r[0].status = 'up';
   assert.equal(repeatersSchema.safeParse(r).success, false);

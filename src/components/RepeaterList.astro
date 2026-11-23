@@ -5,22 +5,16 @@ interface Props { compact?: boolean }
 const { compact = false } = Astro.props;
 const label = { testing: 'Testing', 'on-air': 'On the air', down: 'Down', unknown: 'Status unknown' };
 ---
-<mm-repeaters>
-  {repeaters.length === 0 ? (
-    <p>No repeaters are listed yet.</p>
-  ) : (
-    <ul class="mm-repeaters">
-      {repeaters.map((r) => (
-        <li data-last-checked={r.lastChecked} data-status={r.status}>
-          <span class="mm-area">{r.area}</span>
-          <span class={`mm-tag mm-tag--${r.status}`} data-tag>{label[r.status]}</span>
-          <span class="mm-checked">Last checked {r.lastChecked}</span>
-          {!compact && repeaterDetails(r).map((d) => <p class="mm-notes"><strong>{d.label}:</strong> {d.value}</p>)}
-        </li>
-      ))}
-    </ul>
-  )}
-</mm-repeaters>
-<script>
-  import '../scripts/stale-status.js';
-</script>
+{repeaters.length === 0 ? (
+  <p>No repeaters are listed yet.</p>
+) : (
+  <ul class="mm-repeaters">
+    {repeaters.map((r) => (
+      <li data-status={r.status}>
+        <span class="mm-area">{r.area}</span>
+        <span class={`mm-tag mm-tag--${r.status}`}>{label[r.status]}</span>
+        {!compact && repeaterDetails(r).map((d) => <p class="mm-notes"><strong>{d.label}:</strong> {d.value}</p>)}
+      </li>
+    ))}
+  </ul>
+)}
