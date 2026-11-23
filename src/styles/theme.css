@@ -1,76 +1,124 @@
-/* Missoula Mesh "trail map" theme. Contrast checked for WCAG 2.2 AA. */
-/* Dark is Starlight's default (:root); light overrides below. */
+/* Missoula Mesh "huckleberry, larch, river" theme.
+   A triadic scheme: huckleberry purple, larch gold, Clark Fork teal.
+   Purple leads (sky, header, headings), teal marks links and mountains, gold marks actions and radio waves.
+   Contrast checked for WCAG 2.2 AA. Dark is Starlight's default (:root); light overrides below. */
 :root {
-  --mm-heading-font: Georgia, 'Times New Roman', serif;
-  --mm-paper: #1b2a20;
-  --mm-ink: #f4efe3;
-  --mm-forest: #7fa98a;
-  --mm-rust: #e58a5c;
-  --mm-rust-text: #e58a5c;
-  --mm-line: #34483a;
-  --mm-muted: #b9c4b4;
-  --mm-tag-text: #1b2a20;
+  --mm-font: 'Recursive Variable', system-ui, sans-serif;
 
-  --sl-color-white: #f4efe3;
-  --sl-color-gray-1: #e4ddcc;
-  --sl-color-gray-2: #d0cab9;
-  --sl-color-gray-3: #b9c4b4;
-  --sl-color-gray-4: #7f8a7c;
-  --sl-color-gray-5: #34483a;
-  --sl-color-gray-6: #233528;
-  --sl-color-black: #1b2a20;
-  --sl-color-accent-low: #2c4a35;
-  --sl-color-accent: #7fa98a;
-  --sl-color-accent-high: #9cc5a6;
+  /* The three scheme colors, plus deeper and lighter steps of each. */
+  --mm-huckleberry-deep: #3a1660;
+  --mm-huckleberry: #4a1f73;
+  --mm-huckleberry-soft: #6a2f86;
+  --mm-larch: #f2b01e;
+  --mm-larch-ink: #2a1245;
+  --mm-river-light: #1a9c8e;
+  --mm-river: #0d7268;
+  --mm-river-deep: #0a4f49;
+  --mm-river-mist: #7fe0d2;
+
+  /* Dark-mode roles. */
+  --mm-paper: #160c22;
+  --mm-ink: #f3eefa;
+  --mm-muted: #b8acc9;
+  --mm-line: #2f2342;
+  --mm-heading: var(--mm-larch);
+  --mm-sky-top: #22093d;
+  --mm-sky-bottom: #4a1f73;
+  --mm-focus: var(--mm-larch);
+  --mm-btn: var(--mm-larch);
+  --mm-btn-ink: var(--mm-larch-ink);
+  --mm-step-1: #a77bd6;
+  --mm-step-1-ink: #160c22;
+
+  --sl-font: var(--mm-font);
+  --sl-color-white: #f3eefa;
+  --sl-color-gray-1: #e6def0;
+  --sl-color-gray-2: #cfc4dc;
+  --sl-color-gray-3: #b8acc9;
+  --sl-color-gray-4: #7d7090;
+  --sl-color-gray-5: #2f2342;
+  --sl-color-gray-6: #22183a;
+  --sl-color-black: #160c22;
+  --sl-color-accent-low: #0b2f2c;
+  --sl-color-accent: #1a9c8e;
+  --sl-color-accent-high: #4fd1c0;
 }
 
 :root[data-theme='light'] {
-  --mm-paper: #f4efe3;
-  --mm-ink: #2b2a24;
-  --mm-forest: #24452f;
-  --mm-rust: #b5562a;
-  --mm-rust-text: #9a4520;
-  --mm-line: #d8cfb8;
-  --mm-muted: #5c5848;
-  --mm-tag-text: #ffffff;
+  --mm-paper: #f7f5fa;
+  --mm-ink: #1e1530;
+  --mm-muted: #574d68;
+  --mm-line: #e0d9ea;
+  --mm-heading: var(--mm-huckleberry);
+  --mm-sky-top: #3a1660;
+  --mm-sky-bottom: #6a2f86;
+  --mm-focus: var(--mm-river);
+  --mm-btn: var(--mm-huckleberry);
+  --mm-btn-ink: #ffffff;
+  --mm-step-1: var(--mm-huckleberry);
+  --mm-step-1-ink: #ffffff;
 
-  --sl-color-white: #2b2a24;
-  --sl-color-gray-1: #3a382f;
-  --sl-color-gray-2: #2b2a24;
-  --sl-color-gray-3: #5c5848;
-  --sl-color-gray-4: #8a8370;
-  --sl-color-gray-5: #d8cfb8;
-  --sl-color-gray-6: #ebe4d3;
-  --sl-color-gray-7: #f0eadc;
-  --sl-color-black: #f4efe3;
-  --sl-color-accent-low: #d6e3d4;
-  --sl-color-accent: #3d6b4b;
-  --sl-color-accent-high: #24452f;
+  --sl-color-white: #1e1530;
+  --sl-color-gray-1: #2c2240;
+  --sl-color-gray-2: #1e1530;
+  --sl-color-gray-3: #574d68;
+  --sl-color-gray-4: #8a7f9c;
+  --sl-color-gray-5: #e0d9ea;
+  --sl-color-gray-6: #efeaf5;
+  --sl-color-gray-7: #f4f0f8;
+  --sl-color-black: #f7f5fa;
+  --sl-color-accent-low: #d3efeb;
+  --sl-color-accent: #0d7268;
+  --sl-color-accent-high: #0a4f49;
 }
 
-/* Type: serif headings, system sans body (Starlight default). */
+/* Header: huckleberry purple in both themes, so it uses its own light-on-dark grays. */
+header.header {
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #f0e8fa;
+  --sl-color-gray-2: #e3d6f2;
+  --sl-color-gray-3: #c9b6e0;
+  --sl-color-gray-4: #9b86b8;
+  --sl-color-gray-5: #5a3a80;
+  --sl-color-gray-6: #2c1050;
+  --sl-color-black: #3a1660;
+  --sl-color-text: #e3d6f2;
+  --sl-color-text-accent: var(--mm-larch);
+  --sl-color-hairline-light: #5a3a80;
+  --sl-color-hairline-shade: #2a0f47;
+  --sl-color-bg-nav: var(--mm-sky-top);
+  background-color: var(--mm-sky-top);
+  border-bottom-color: #2a0f47;
+}
+header.header .site-title { color: var(--mm-larch); }
+header.header :focus-visible { outline-color: var(--mm-larch); }
+
+/* Type: Recursive everywhere, heavy for headings. */
 .sl-markdown-content :is(h1, h2, h3, h4),
 h1#_top,
 .site-title,
 .mm-hero h1 {
-  font-family: var(--mm-heading-font);
+  font-family: var(--mm-font);
+  font-weight: 850;
+  letter-spacing: -0.01em;
 }
-.site-title { color: var(--mm-ink); }
+.sl-markdown-content :is(h1, h2, h3),
+h1#_top { color: var(--mm-heading); }
 
 /* Repeater status tags. */
 .mm-tag {
   display: inline-block;
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 750;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   padding: 0.1rem 0.5rem;
   border-radius: 0.25rem;
-  color: var(--mm-tag-text);
-  background: var(--mm-forest);
+  color: #ffffff;
+  background: var(--mm-river);
 }
-.mm-tag--testing { background: var(--mm-rust); }
-.mm-tag--on-air { background: var(--mm-forest); }
+.mm-tag--testing { background: var(--mm-larch); color: var(--mm-larch-ink); }
+.mm-tag--on-air { background: var(--mm-river); color: #ffffff; }
 .mm-tag--down { background: #6b1f1f; color: #ffffff; }
 .mm-tag--unknown { background: var(--mm-muted); color: var(--sl-color-black); }
 
@@ -88,7 +136,7 @@ h1#_top,
 .mm-repeaters .mm-area { font-weight: 700; color: var(--mm-ink); }
 .mm-repeaters .mm-notes { flex-basis: 100%; color: var(--mm-muted); font-size: 0.9rem; margin: 0; }
 
-/* Big numbered steps. */
+/* Big numbered steps. The circles cycle through the three scheme colors. */
 .mm-steps { counter-reset: mm-step; list-style: none; padding: 0; }
 .mm-steps > li {
   counter-increment: mm-step;
@@ -104,19 +152,21 @@ h1#_top,
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  background: var(--mm-forest);
-  color: var(--sl-color-black);
-  font-weight: 700;
+  background: var(--mm-step-1);
+  color: var(--mm-step-1-ink);
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.mm-steps > li:nth-child(3n + 2)::before { background: var(--mm-river); color: #ffffff; }
+.mm-steps > li:nth-child(3n)::before { background: var(--mm-larch); color: var(--mm-larch-ink); }
 
-/* Home hero: a ridgeline rising to a tall peak on the right, with radio waves spreading from the summit. */
+/* Home hero: a purple sky over three teal ridges, with gold radio waves spreading from the summit. */
 .mm-hero {
   position: relative;
   overflow: hidden;
-  background: var(--mm-paper);
+  background: linear-gradient(180deg, var(--mm-sky-top), var(--mm-sky-bottom));
   padding: 3rem 1.5rem 9rem;
   border-radius: 0.5rem;
   margin-bottom: 2rem;
@@ -129,36 +179,37 @@ h1#_top,
   height: 8.5rem;
   z-index: 0;
 }
-.mm-hero-art .mm-waves { stroke: var(--mm-rust); stroke-width: 3; }
-.mm-hero-art .mm-range-back { fill: var(--mm-forest); opacity: 0.35; }
-.mm-hero-art .mm-range-front { fill: var(--mm-forest); }
-.mm-hero-art .mm-summit { fill: var(--mm-rust); }
+.mm-hero-art .mm-waves { stroke: var(--mm-larch); stroke-width: 3; }
+.mm-hero-art .mm-range-back { fill: var(--mm-river-light); }
+.mm-hero-art .mm-range-mid { fill: var(--mm-river); }
+.mm-hero-art .mm-range-front { fill: var(--mm-river-deep); }
+.mm-hero-art .mm-summit { fill: var(--mm-larch); }
 @media (min-width: 50rem) {
   .mm-hero { padding-bottom: 5rem; min-height: 24rem; }
   .mm-hero-art { height: 100%; }
 }
-.mm-hero h1 { color: var(--mm-forest); font-size: clamp(2rem, 6vw, 3rem); margin: 0; }
+.mm-hero h1 { color: var(--mm-larch); font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1; margin: 0; }
 .mm-hero .mm-tagline {
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--mm-rust-text);
+  color: var(--mm-river-mist);
   font-size: 0.85rem;
-  margin: 0.25rem 0 1rem;
+  margin: 0.6rem 0 1rem;
 }
-.mm-hero .mm-lede { font-size: 1.2rem; color: var(--mm-ink); max-width: 36rem; }
+.mm-hero .mm-lede { font-size: 1.2rem; color: #ffffff; max-width: 36rem; }
 .mm-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
 .mm-buttons a {
   display: inline-block;
-  padding: 0.75rem 1.25rem;
-  border-radius: 0.4rem;
-  font-weight: 700;
+  padding: 0.75rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 750;
   text-decoration: none;
-  border: 2px solid var(--mm-forest);
+  border: 2px solid var(--mm-larch);
 }
-.mm-buttons a.mm-primary { background: var(--mm-forest); color: var(--sl-color-black); }
-.mm-buttons a.mm-secondary { color: var(--mm-forest); background: var(--mm-paper); }
-.mm-buttons a:focus-visible { outline: 3px solid var(--mm-rust); outline-offset: 2px; }
+.mm-buttons a.mm-primary { background: var(--mm-larch); color: var(--mm-larch-ink); }
+.mm-buttons a.mm-secondary { color: #ffffff; border-color: #ffffff; background: transparent; }
+.mm-buttons a:focus-visible { outline: 3px solid var(--mm-river-mist); outline-offset: 2px; }
 
 /* Contact form. */
 .mm-form label { display: block; font-weight: 700; color: var(--mm-ink); margin-bottom: 0.25rem; }
@@ -172,18 +223,18 @@ h1#_top,
   border: 2px solid var(--mm-muted);
   border-radius: 0.3rem;
 }
-.mm-form :is(input, select, textarea):focus-visible { outline: 3px solid var(--mm-rust); outline-offset: 1px; }
+.mm-form :is(input, select, textarea):focus-visible { outline: 3px solid var(--mm-focus); outline-offset: 1px; }
 .mm-form button {
   font: inherit;
-  font-weight: 700;
+  font-weight: 750;
   padding: 0.7rem 1.4rem;
-  border-radius: 0.4rem;
-  border: 2px solid var(--mm-forest);
-  background: var(--mm-forest);
-  color: var(--sl-color-black);
+  border-radius: 999px;
+  border: 2px solid var(--mm-btn);
+  background: var(--mm-btn);
+  color: var(--mm-btn-ink);
   cursor: pointer;
 }
-.mm-form button:focus-visible { outline: 3px solid var(--mm-rust); outline-offset: 2px; }
+.mm-form button:focus-visible { outline: 3px solid var(--mm-focus); outline-offset: 2px; }
 .mm-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 
 /* WCAG 2.5.3: the search button's visible text must match its name ("Search"). */

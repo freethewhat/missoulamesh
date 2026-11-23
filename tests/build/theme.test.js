@@ -12,8 +12,8 @@ test('favicon.svg is published', () => {
   assert.ok(existsSync(join(DIST, 'favicon.svg')));
 });
 
-test('built CSS carries the trail-map paper color', () => {
+test('built CSS carries the huckleberry purple', () => {
   const dir = join(DIST, '_astro');
   const css = readdirSync(dir).filter((f) => f.endsWith('.css')).map((f) => readFileSync(join(dir, f), 'utf8')).join('\n');
-  assert.match(css, /#f4efe3/i);
+  assert.match(css, /#4a1f73/i);
 });

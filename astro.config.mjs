@@ -6,12 +6,14 @@ import starlightLinksValidator from 'starlight-links-validator';
 export default defineConfig({
   site: 'https://missoulamesh.org',
   build: { inlineStylesheets: 'never' },
+  // Never inline small assets (like font subsets) as data: URIs. The CSP allows fonts from 'self' only.
+  vite: { build: { assetsInlineLimit: 0 } },
   integrations: [
     starlight({
       title: 'Missoula Mesh',
       logo: { light: './src/assets/badge-light.svg', dark: './src/assets/badge-dark.svg', alt: '' },
       favicon: '/favicon.svg',
-      customCss: ['./src/styles/theme.css'],
+      customCss: ['@fontsource-variable/recursive/wght.css', './src/styles/theme.css'],
       components: {
         Hero: './src/components/HomeHero.astro',
         ThemeProvider: './src/components/ThemeProvider.astro',
