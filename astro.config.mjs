@@ -25,10 +25,6 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Run a repeater',
-          items: [{ label: 'Repeater settings', link: '/repeater-settings/' }],
-        },
-        {
           label: 'Community',
           items: [
             { label: 'Contact', link: '/contact/' },

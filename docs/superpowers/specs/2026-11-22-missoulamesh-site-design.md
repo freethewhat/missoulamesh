@@ -21,7 +21,7 @@ missoulamesh.org is the home for MeshCore in the Missoula Valley. It shows that 
 
 - A new user can go from a device in the box to sending a message on `#missoula` by following one page.
 - A new user can see, before they try, whether a repeater is near them, and what to do if none is.
-- An experienced user can find the local settings (radio, regions, channels, names), the repeater guide, and a way to contact the owner and get involved.
+- An experienced user can find the node settings (radio, path hash size, channels) and a way to contact the owner and get involved.
 - Existing MeshCore operators in the valley (like the operator of the down repeater) can find the group and get in touch.
 
 ## 4. Non-goals (for now)
@@ -102,7 +102,7 @@ For missoulamesh:
 
 ### Data files (one source of truth each)
 
-- `src/data/settings.json`: radio preset (name, frequency, bandwidth, SF, CR, CLI string), path hash mode, channel list, region names, last-reviewed date, and a short FCC note.
+- `src/data/settings.json`: radio preset (name, frequency, bandwidth, SF, CR), path hash mode, channel list, `tested` flag, last-reviewed date, and a short FCC note. (No repeater commands or regions: repeater setup is out of scope.)
 - `src/data/repeaters.json`: one entry per repeater with name, area served (a neighborhood name), status (`testing` | `on-air` | `down` | `unknown`), last-checked date, owner contact (optional), and notes.
 
 Every page that shows a setting or a repeater reads it from these files. No value is typed into a page by hand.
@@ -113,8 +113,8 @@ Every page that shows a setting or a repeater reads it from these files. No valu
 
 ### Launch in two steps (owner's decision: small launch)
 
-- **Release 1 (launch):** `/` Home, `/start`, `/repeaters`, `/settings`, `/repeater-settings`, `/meshtastic`, `/contact`, `/about`. Pages that show settings carry a visible "not yet tested locally" note until the owner has tested them on the repeater. One flag in `settings.json` (for example `tested: false`) controls the note.
-- **Release 2 (after the owner's repeater test):** `/get-involved`, `/repeater`, `/naming`, `/hardware`, `/faq`. Also remove the "not yet tested" note.
+- **Release 1 (launch):** `/` Home, `/start`, `/repeaters`, `/settings`, `/meshtastic`, `/contact`, `/about`. Pages that show settings carry a visible "not yet tested locally" note until the owner has tested them on the repeater. One flag in `settings.json` (for example `tested: false`) controls the note.
+- **Release 2 (after the owner's repeater test):** `/get-involved`, `/hardware`, `/faq`. Also remove the "not yet tested" note.
 
 The home page's "I already use MeshCore" button goes to `/contact` in Release 1 and to `/get-involved` in Release 2.
 
@@ -125,11 +125,8 @@ The home page's "I already use MeshCore" button goes to `/contact` in Release 1 
 /start       "I just got a device": step-by-step setup
 /repeaters   Repeater list (area only, status, last checked)
 /settings    Device settings (for a new person's own device): preset, path hash size, blank region scope, channels. No repeater commands.
-/repeater-settings  Repeater settings: radio table + set radio, path hash command, regions (added 2026-11-22 so new people never see CLI text)
 /hardware    A few recommended devices, with prices and where to buy
 /get-involved "Get involved": who to contact, ways to help (repeaters are one option, not the ask), local settings links
-/repeater    Repeater setup guide: copy-paste CLI block, delay profiles, key-prefix check, verify list
-/naming      Naming rules + a small name generator
 /meshtastic  Friendly pointer to Ravalli Mesh (see below)
 /faq         MeshCore vs Meshtastic (fair), cost, no license needed, privacy, FCC note
 /contact     Contact form (also in Release 1)
@@ -172,33 +169,20 @@ Short and friendly. It says: "Want Meshtastic? Ravalli Mesh runs a good Meshtast
 6. Test: send a message on `#missoula` and look for a reply.
 7. Stuck? Use the contact form.
 
-### Local settings (owner's calls to confirm while reading)
+### Node settings (owner decision 2026-11-22: no repeater setup or repeater settings pages)
 
-Taken from what other US MeshCore groups use. The owner will test them on a real repeater this week. The builder must check every CLI command against `docs.meshcore.io/cli_commands` before it is published.
+The site shows only the settings a node (a person's own device) needs. Repeater setup, repeater commands, regions, delay profiles, key-prefix checks, and repeater naming are out of scope. The owner will test the node settings on the first repeater.
 
-- Radio: USA/Canada (Recommended), 910.525 MHz, BW 62.5 kHz, SF 7, CR 5. CLI `set radio 910.525,62.5,7,5`.
-- Path hash mode: **1-byte** (`set path.hash.mode 0`). Owner set the local mesh to 1-byte on 2026-11-22. Other US groups use 2-byte; revisit if repeater ID clashes appear as the mesh grows. The value lives in `settings.json` (`pathHashMode`) and every page reads it from there.
-- Repeater: admin password changed from the default; guest password blank; `advert.interval 240`; `flood.advert.interval 24`; `flood.max 32`; `agc.reset.interval 500`; `loop.detect moderate`; `owner.info` includes `missoulamesh.org`; `clock sync` after each boot.
-- Delay profiles (`set txdelay` / `set direct.txdelay` / `set rxdelay`), adapted from MichMesh and Denver:
-
-  | Profile | Use | txdelay | direct.txdelay | rxdelay |
-  |---|---|---|---|---|
-  | PEAK | Mt. Sentinel, Mt. Jumbo, Blue Mtn, Bitterroot peaks | 2 | 2 | 3 |
-  | BENCH | South Hills, Rattlesnake, high rooftops | 1.5 | 1 | 3 |
-  | TOWN | Normal rooftop | 0.8 | 0.4 | 3 |
-  | LOCAL | Indoor / low | 0.3 | 0.1 | 3 |
-  | MOBILE | Vehicle / hiking | 2 | 2 | 3 |
-
-- Key prefix: the first 4 hex characters of a repeater's public key must be unique nearby. Check before going live. If there is a match, make a new key with config.meshcore.io or gessaman.com/mc-keygen.
-- Regions: define `us-mt` and `us-mt-mso` on repeaters. Do not set a default scope on repeaters or companions yet.
+- Radio: USA/Canada (Recommended), 910.525 MHz, BW 62.5 kHz, SF 7, CR 5. Shown as a table on `/settings/`.
+- Path hash size: 1-byte (owner set the local mesh to 1-byte on 2026-11-22; other US groups use 2-byte).
+- Default region scope: blank.
 - Channels: Public, `#missoula`, `#montana`, `#testing`, `#emergency`. Show each hashtag channel's key for devices that cannot type `#`.
-- Repeater name: `MSO-<PLACE>-<TYPE>-<KEY4>`, max 23 characters. Types: RC core, RE edge, RM mobile, TS room server.
 
 ## 10a. Look and feel (owner chose from mockups, 2026-11-22)
 
 Mockups are in `.superpowers/brainstorm/` (`visual-style.html`, `logo.html`, `guide-layout.html`). That folder is local and not committed, so this section is the record of what was chosen.
 
-- **Style: "Trail map."** It must feel familiar and local to Missoula and western Montana. Warm paper background, forest green, rust accents, faint topo contour lines, and a mountain-ridge band under the home page hero.
+- **Style: "Trail map."** It must feel familiar and local to Missoula and western Montana. Warm paper background, forest green, and rust accents. The home hero shows a ridgeline that rises from low on the left to a tall peak on the right, with rust radio waves radiating from the summit behind the mountains (changed 2026-11-22 from topo lines and a flat ridge).
 - **Starting colors** (the builder must check every text/background pair for WCAG 2.2 AA and adjust shades as needed; rust on paper is close to the 4.5:1 limit for small text):
   - Light: paper `#f4efe3`, ink `#2b2a24`, forest `#24452f`, rust `#b5562a`, line `#d8cfb8`
   - Dark: background `#1b2a20`, text `#f4efe3`, sage `#7fa98a`, light rust `#e58a5c`
@@ -209,7 +193,7 @@ Mockups are in `.superpowers/brainstorm/` (`visual-style.html`, `logo.html`, `gu
   - Guide pages: Starlight's standard layout with a left menu, top search, and an on-page table of contents. The menu folds into a button on phones.
   - `/start` uses big numbered steps, copy buttons on settings, and the "not yet tested locally" note box (rust left border).
   - Repeater status tags: small colored labels (for example rust for TESTING).
-- **Menu groups:** Get started (I just got a device, Repeaters, Device settings), Run a repeater (Repeater settings), and Community (Contact, Meshtastic?, About). Release 2 adds Get involved, Repeater guide, Naming, Hardware, FAQ (repeater pages go in "Run a repeater").
+- **Menu groups:** Get started (I just got a device, Repeaters, Device settings) and Community (Contact, Meshtastic?, About). Release 2 adds Get involved, Hardware, FAQ.
 
 ## 11. Quality checks
 

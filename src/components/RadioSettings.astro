@@ -1,7 +1,5 @@
 ---
-import { Code } from '@astrojs/starlight/components';
 import { settings } from '../lib/data.js';
-import { radioCli } from '../lib/radio.js';
 const r = settings.radio;
 ---
 <table>
@@ -14,5 +12,3 @@ const r = settings.radio;
     <tr><th scope="row">Coding rate</th><td>{r.codingRate}</td><td>Extra error checking. Can differ, but keep it the same.</td></tr>
   </tbody>
 </table>
-<p>On a repeater, you can set all of this with one command:</p>
-<Code code={radioCli(r)} lang="sh" />

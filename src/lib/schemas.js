@@ -5,8 +5,6 @@ const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine((s) => {
   return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === s;
 }, 'not a real calendar date');
 
-const regionName = z.string().regex(/^[a-z0-9-]+$/).refine((s) => new TextEncoder().encode(s).length <= 29, 'max 29 bytes');
-
 export const settingsSchema = z.object({
   tested: z.boolean(),
   lastReviewed: isoDate,
@@ -18,7 +16,6 @@ export const settingsSchema = z.object({
     codingRate: z.number().int().min(5).max(8),
   }),
   pathHashMode: z.number().int().min(0).max(2),
-  regions: z.array(z.object({ name: regionName, parent: regionName.nullable() })),
   channels: z.array(z.object({
     name: z.string().min(1),
     type: z.enum(['public', 'hashtag']),

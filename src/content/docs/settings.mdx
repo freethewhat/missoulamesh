@@ -4,6 +4,7 @@ description: The settings your own MeshCore device needs to join the Missoula me
 ---
 import UntestedNote from '../../components/UntestedNote.astro';
 import ChannelTable from '../../components/ChannelTable.astro';
+import RadioSettings from '../../components/RadioSettings.astro';
 import { settings } from '../../lib/data.js';
 import { pathHashLabel } from '../../lib/path-hash.js';
 
@@ -17,7 +18,11 @@ These are the settings for your own device: the one you pair with your phone. Ev
 2. **Path hash size:** choose **{pathHashLabel(settings.pathHashMode)}**. Find it under network settings. (The **path hash** is a short ID each repeater adds to a message as it passes it on.)
 3. **Default region scope:** leave it **blank**. (A **region** keeps messages local. Setting one too early can cut you off from repeaters.)
 
-**No preset list in your app?** Enter these by hand: frequency {settings.radio.frequencyMHz} MHz, bandwidth {settings.radio.bandwidthKHz} kHz, spreading factor {settings.radio.spreadingFactor}, coding rate {settings.radio.codingRate}.
+## Radio settings
+
+The preset fills these in for you. If your app has no preset list, enter them by hand.
+
+<RadioSettings />
 
 ## Channels
 
@@ -26,10 +31,6 @@ A **channel** is a group chat. Everyone on the same channel can read it. Add `#m
 <ChannelTable />
 
 The key is only for devices that cannot type `#`. On most devices, type the name and the app works out the key.
-
-## Run a repeater?
-
-Repeater owners: see [repeater settings](/repeater-settings/).
 
 ## Rules may change
 

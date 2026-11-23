@@ -9,16 +9,27 @@
     "codingRate": 5
   },
   "pathHashMode": 0,
-  "regions": [
-    { "name": "us-mt", "parent": null },
-    { "name": "us-mt-mso", "parent": "us-mt" }
-  ],
   "channels": [
-    { "name": "Public", "type": "public" },
-    { "name": "#missoula", "type": "hashtag" },
-    { "name": "#montana", "type": "hashtag" },
-    { "name": "#testing", "type": "hashtag" },
-    { "name": "#emergency", "type": "hashtag" }
+    {
+      "name": "Public",
+      "type": "public"
+    },
+    {
+      "name": "#missoula",
+      "type": "hashtag"
+    },
+    {
+      "name": "#montana",
+      "type": "hashtag"
+    },
+    {
+      "name": "#testing",
+      "type": "hashtag"
+    },
+    {
+      "name": "#emergency",
+      "type": "hashtag"
+    }
   ],
   "fccNote": "MeshCore GitHub issue #945 asks whether the US 62.5 kHz preset meets FCC rule 15.247. There is no FCC action yet. If the preset changes, this page changes with it."
 }
