@@ -20,8 +20,8 @@ export default defineConfig({
           label: 'Get started',
           items: [
             { label: 'I just got a device', link: '/start/' },
-            { label: 'Repeaters', link: '/repeaters/' },
             { label: 'Device settings', link: '/settings/' },
+            { label: 'Repeaters', link: '/repeaters/' },
           ],
         },
         {

@@ -56,10 +56,9 @@ test('start shows the untested note', () => {
   assert.match(readPage('/start/'), /class="mm-note"/);
 });
 
-const RAVALLI = ['https://ravallimesh.org/', 'https://ravallimesh.org/join-the-community/', 'https://ravallimesh.org/new-coverage-missoula-frenchtown/', 'https://mesh.ravallimesh.org/', 'https://go.ravallimesh.org/s/chat', 'https://ravallimesh.org/best-practices/'];
-test('meshtastic page links all six Ravalli Mesh pages', () => {
-  const h = readPage('/meshtastic/');
-  for (const u of RAVALLI) assert.ok(h.includes(`href="${u}"`), u);
+test('meshtastic page links only the Ravalli Mesh home page', () => {
+  const links = [...readPage('/meshtastic/').matchAll(/href="(https:\/\/[^"]*ravallimesh\.org[^"]*)"/g)].map((m) => m[1]);
+  assert.deepEqual([...new Set(links)], ['https://ravallimesh.org/']);
 });
 test('meshtastic page says the radios cannot talk to each other', () => {
   assert.match(pageText('/meshtastic/'), /cannot talk to each other/);
