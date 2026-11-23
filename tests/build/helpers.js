@@ -3,7 +3,7 @@ import { join } from 'node:path';
 
 export const DIST = new URL('../../dist/', import.meta.url).pathname;
 
-export const ROUTES = ['/', '/start/', '/faq/', '/repeaters/', '/settings/', '/hardware/', '/host-a-repeater/', '/meshtastic/', '/contact/', '/contact/thanks/', '/contact/error/', '/about/'];
+export const ROUTES = ['/', '/start/', '/faq/', '/repeaters/', '/settings/', '/hardware/', '/host-a-repeater/', '/help/', '/meshtastic/', '/contact/', '/contact/thanks/', '/contact/error/', '/about/'];
 
 export function pagePath(route) {
   return join(DIST, route, 'index.html');

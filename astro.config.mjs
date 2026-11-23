@@ -28,6 +28,7 @@ export default defineConfig({
             { label: 'What to buy', link: '/hardware/' },
             { label: 'Device settings', link: '/settings/' },
             { label: 'Repeaters', link: '/repeaters/' },
+            { label: 'Help', link: '/help/' },
           ],
         },
         {
