@@ -23,7 +23,8 @@ export default defineConfig({
         {
           label: 'Get started',
           items: [
-            { label: 'I just got a device', link: '/start/' },
+            { label: 'FAQ', link: '/faq/' },
+            { label: 'Join the mesh', link: '/start/' },
             { label: 'Device settings', link: '/settings/' },
             { label: 'Repeaters', link: '/repeaters/' },
           ],

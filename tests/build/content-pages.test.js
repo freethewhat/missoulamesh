@@ -10,10 +10,23 @@ test('home has the hero line', () => {
 test('home has the tagline', () => {
   assert.ok(pageText('/').includes('Western Montana MeshCore'));
 });
-test('home buttons go to start and contact', () => {
+test('home buttons go to join and FAQ', () => {
   const h = readPage('/');
-  assert.ok(link(h, '/start/', 'I just got a device'), 'start button');
-  assert.ok(link(h, '/contact/', 'I already use MeshCore'), 'contact button');
+  assert.ok(link(h, '/start/', 'Join the mesh'), 'join button');
+  assert.ok(link(h, '/faq/', 'FAQ'), 'FAQ button');
+});
+
+test('FAQ answers the common questions', () => {
+  const h = readPage('/faq/');
+  for (const q of ['What is MeshCore?', 'Why would I use MeshCore?', 'How does it work?', 'Do I need a license?', 'What does it cost?', 'Is it private?', 'Can I use it in an emergency?']) {
+    assert.match(h, new RegExp(`<h2[^>]*>${q.replace(/[?]/g, '\\$&')}</h2>`), q);
+  }
+});
+test('FAQ links to join', () => {
+  assert.match(readPage('/faq/'), /href="\/start\/"/);
+});
+test('start page is called Join the mesh', () => {
+  assert.match(readPage('/start/'), /<h1[^>]*>Join the mesh<\/h1>/);
 });
 test('home shows the compact repeater list', () => {
   const h = readPage('/');
@@ -52,8 +65,8 @@ test('start links the repeater list and flasher', () => {
   assert.match(h, /href="\/repeaters\/"/);
   assert.match(h, /href="https:\/\/flasher\.meshcore\.io\/?"/);
 });
-test('start shows the untested note', () => {
-  assert.match(readPage('/start/'), /class="mm-note"/);
+test('start has no untested note', () => {
+  assert.doesNotMatch(readPage('/start/'), /class="mm-note"/);
 });
 
 test('meshtastic page links only the Ravalli Mesh home page', () => {
