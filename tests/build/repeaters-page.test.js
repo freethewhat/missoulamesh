@@ -36,3 +36,8 @@ test('Franklin to the Fort repeater is listed with its name', () => {
   assert.ok(t.includes('Franklin to the Fort neighborhood'));
   assert.match(t, /Franklin to the Fort neighborhood.*Name: MSLAMT_MTC_Repeater_BASE/);
 });
+
+test('Franklin to the Fort repeater is on the air', () => {
+  const html = readPage('/repeaters/');
+  assert.match(html, /<li data-last-checked="2026-11-22" data-status="on-air"[^>]*>\s*<span class="mm-area"[^>]*>Franklin to the Fort neighborhood/);
+});
