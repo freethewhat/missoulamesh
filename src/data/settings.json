@@ -12,19 +12,23 @@
   "channels": [
     {
       "name": "Public",
-      "type": "public"
+      "type": "public",
+      "purpose": "Open chat with anyone on MeshCore in range. Built in to every device."
     },
     {
       "name": "#missoula",
-      "type": "hashtag"
+      "type": "hashtag",
+      "purpose": "Local chat for the Missoula Valley. Say hi, ask questions, share news."
     },
     {
       "name": "#testing",
-      "type": "hashtag"
+      "type": "hashtag",
+      "purpose": "Test messages and range checks. Send your pings here, not on #missoula."
     },
     {
       "name": "#emergency",
-      "type": "hashtag"
+      "type": "hashtag",
+      "purpose": "Real emergencies only. Keep it clear for people who need help. Call 911 first if you can."
     }
   ],
   "fccNote": "MeshCore GitHub issue #945 asks whether the US 62.5 kHz preset meets FCC rule 15.247. There is no FCC action yet. If the preset changes, this page changes with it."

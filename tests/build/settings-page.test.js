@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
 import { readPage, pageText, pagePath } from './helpers.js';
 import { channelKey } from '../../src/lib/channels.js';
+import settings from '../../src/data/settings.json' with { type: 'json' };
 
 const text = () => pageText('/settings/');
 
@@ -44,4 +45,9 @@ test('device settings page shows the not-yet-tested note and FCC note', () => {
 test('there is no repeater settings page or Run a repeater menu', () => {
   assert.equal(existsSync(pagePath('/repeater-settings/')), false);
   assert.doesNotMatch(readPage('/start/'), /Run a repeater/);
+});
+
+test('device settings page says what each channel is for', () => {
+  const t = pageText('/settings/');
+  for (const c of settings.channels) assert.ok(t.includes(c.purpose), c.name);
 });

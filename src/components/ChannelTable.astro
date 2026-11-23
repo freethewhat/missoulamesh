@@ -8,7 +8,7 @@ import { channelKey } from '../lib/channels.js';
     {settings.channels.map((c) => (
       <tr>
         <th scope="row"><code>{c.name}</code></th>
-        <td>{c.type === 'public' ? 'Built in to every MeshCore device.' : 'Type the name with the # in the app to join.'}</td>
+        <td>{c.purpose}</td>
         <td>{c.type === 'hashtag' ? <code>{channelKey(c.name)}</code> : 'Built in'}</td>
       </tr>
     ))}

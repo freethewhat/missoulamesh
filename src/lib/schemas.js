@@ -19,6 +19,7 @@ export const settingsSchema = z.object({
   channels: z.array(z.object({
     name: z.string().min(1),
     type: z.enum(['public', 'hashtag']),
+    purpose: z.string().min(1),
   }).refine((c) => c.type !== 'hashtag' || c.name.startsWith('#'), 'hashtag channels start with #')),
   fccNote: z.string().min(1),
 });
