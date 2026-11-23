@@ -1,48 +1,35 @@
 ---
-title: Local settings
-description: Radio, companion, channel, and region settings for the Missoula MeshCore mesh.
+title: Device settings
+description: The settings your own MeshCore device needs to join the Missoula mesh.
 ---
 import UntestedNote from '../../components/UntestedNote.astro';
-import RadioSettings from '../../components/RadioSettings.astro';
 import ChannelTable from '../../components/ChannelTable.astro';
-import RegionList from '../../components/RegionList.astro';
 import { settings } from '../../lib/data.js';
-import { pathHashLabel, pathHashCli } from '../../lib/path-hash.js';
-import { Code } from '@astrojs/starlight/components';
+import { pathHashLabel } from '../../lib/path-hash.js';
 
 <UntestedNote />
 
-Every MeshCore device in the valley must use the same radio settings, or they cannot hear each other.
+These are the settings for your own device: the one you pair with your phone. Every device in the valley needs the same settings, or they cannot hear each other.
 
-## Radio
+## In the MeshCore app
 
-<RadioSettings />
+1. **Radio preset:** choose **{settings.radio.presetName}**. This one choice sets the radio for you.
+2. **Path hash size:** choose **{pathHashLabel(settings.pathHashMode)}**. Find it under network settings. (The **path hash** is a short ID each repeater adds to a message as it passes it on.)
+3. **Default region scope:** leave it **blank**. (A **region** keeps messages local. Setting one too early can cut you off from repeaters.)
 
-## Companion settings
-
-A **companion** is the MeshCore device you pair with your phone.
-
-- **Radio preset:** {settings.radio.presetName}
-- **Path hash size:** {pathHashLabel(settings.pathHashMode)}. Find it in the app under network settings. (The **path hash** is a short ID each repeater adds to a message as it passes it on.)
-- **Default region scope:** leave it blank for now. (A **region** keeps messages local. Setting one too early can cut you off from repeaters that do not have it.)
-
-On a repeater, set the same path hash size with this command:
-
-<Code code={pathHashCli(settings.pathHashMode)} lang="sh" />
+**No preset list in your app?** Enter these by hand: frequency {settings.radio.frequencyMHz} MHz, bandwidth {settings.radio.bandwidthKHz} kHz, spreading factor {settings.radio.spreadingFactor}, coding rate {settings.radio.codingRate}.
 
 ## Channels
 
-A **channel** is a group chat. Everyone on the same channel can read it.
+A **channel** is a group chat. Everyone on the same channel can read it. Add `#missoula` first.
 
 <ChannelTable />
 
 The key is only for devices that cannot type `#`. On most devices, type the name and the app works out the key.
 
-## Regions
+## Run a repeater?
 
-Repeater owners: add these regions to your repeater. Do not set a default region yet.
-
-<RegionList />
+Repeater owners: see [repeater settings](/repeater-settings/).
 
 ## Rules may change
 

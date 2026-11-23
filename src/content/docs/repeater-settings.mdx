@@ -1,0 +1,40 @@
+---
+title: Repeater settings
+description: Radio, path hash, and region settings for MeshCore repeaters in the Missoula Valley.
+---
+import UntestedNote from '../../components/UntestedNote.astro';
+import RadioSettings from '../../components/RadioSettings.astro';
+import RegionList from '../../components/RegionList.astro';
+import { Code } from '@astrojs/starlight/components';
+import { settings } from '../../lib/data.js';
+import { pathHashLabel, pathHashCli } from '../../lib/path-hash.js';
+
+<UntestedNote />
+
+For people who run a MeshCore **repeater**: a radio, often up high, that passes messages along for everyone. If you only have a device you pair with your phone, you need the [device settings](/settings/) instead.
+
+A full repeater setup guide is coming. For now, these are the values every repeater in the valley must match.
+
+## Radio
+
+<RadioSettings />
+
+## Path hash size
+
+The Missoula mesh uses **{pathHashLabel(settings.pathHashMode)}** path hashes.
+
+<Code code={pathHashCli(settings.pathHashMode)} lang="sh" />
+
+## Regions
+
+Add these regions to your repeater. Do not set a default region yet.
+
+<RegionList />
+
+## Rules may change
+
+{settings.fccNote}
+
+Settings last reviewed: {settings.lastReviewed}.
+
+Questions? Use the [contact form](/contact/).

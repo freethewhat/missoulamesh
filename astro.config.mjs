@@ -21,8 +21,12 @@ export default defineConfig({
           items: [
             { label: 'I just got a device', link: '/start/' },
             { label: 'Repeaters', link: '/repeaters/' },
-            { label: 'Local settings', link: '/settings/' },
+            { label: 'Device settings', link: '/settings/' },
           ],
+        },
+        {
+          label: 'Run a repeater',
+          items: [{ label: 'Repeater settings', link: '/repeater-settings/' }],
         },
         {
           label: 'Community',

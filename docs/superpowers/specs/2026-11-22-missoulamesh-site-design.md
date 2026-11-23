@@ -113,7 +113,7 @@ Every page that shows a setting or a repeater reads it from these files. No valu
 
 ### Launch in two steps (owner's decision: small launch)
 
-- **Release 1 (launch):** `/` Home, `/start`, `/repeaters`, `/settings`, `/meshtastic`, `/contact`, `/about`. Pages that show settings carry a visible "not yet tested locally" note until the owner has tested them on the repeater. One flag in `settings.json` (for example `tested: false`) controls the note.
+- **Release 1 (launch):** `/` Home, `/start`, `/repeaters`, `/settings`, `/repeater-settings`, `/meshtastic`, `/contact`, `/about`. Pages that show settings carry a visible "not yet tested locally" note until the owner has tested them on the repeater. One flag in `settings.json` (for example `tested: false`) controls the note.
 - **Release 2 (after the owner's repeater test):** `/get-involved`, `/repeater`, `/naming`, `/hardware`, `/faq`. Also remove the "not yet tested" note.
 
 The home page's "I already use MeshCore" button goes to `/contact` in Release 1 and to `/get-involved` in Release 2.
@@ -124,7 +124,8 @@ The home page's "I already use MeshCore" button goes to `/contact` in Release 1 
 /            Home
 /start       "I just got a device": step-by-step setup
 /repeaters   Repeater list (area only, status, last checked)
-/settings    Local settings: radio, companion, channels, regions
+/settings    Device settings (for a new person's own device): preset, path hash size, blank region scope, channels. No repeater commands.
+/repeater-settings  Repeater settings: radio table + set radio, path hash command, regions (added 2026-11-22 so new people never see CLI text)
 /hardware    A few recommended devices, with prices and where to buy
 /get-involved "Get involved": who to contact, ways to help (repeaters are one option, not the ask), local settings links
 /repeater    Repeater setup guide: copy-paste CLI block, delay profiles, key-prefix check, verify list
@@ -208,7 +209,7 @@ Mockups are in `.superpowers/brainstorm/` (`visual-style.html`, `logo.html`, `gu
   - Guide pages: Starlight's standard layout with a left menu, top search, and an on-page table of contents. The menu folds into a button on phones.
   - `/start` uses big numbered steps, copy buttons on settings, and the "not yet tested locally" note box (rust left border).
   - Repeater status tags: small colored labels (for example rust for TESTING).
-- **Menu groups:** Get started (I just got a device, Repeaters, Local settings) and Community (Contact, Meshtastic?, About). Release 2 adds a Build/Operate group (Get involved, Repeater guide, Naming, Hardware, FAQ).
+- **Menu groups:** Get started (I just got a device, Repeaters, Device settings), Run a repeater (Repeater settings), and Community (Contact, Meshtastic?, About). Release 2 adds Get involved, Repeater guide, Naming, Hardware, FAQ (repeater pages go in "Run a repeater").
 
 ## 11. Quality checks
 
