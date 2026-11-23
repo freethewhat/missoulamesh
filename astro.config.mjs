@@ -33,6 +33,7 @@ export default defineConfig({
         {
           label: 'Community',
           items: [
+            { label: 'Host a repeater', link: '/host-a-repeater/' },
             { label: 'Contact', link: '/contact/' },
             { label: 'Meshtastic?', link: '/meshtastic/' },
             { label: 'About', link: '/about/' },

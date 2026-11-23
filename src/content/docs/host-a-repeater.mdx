@@ -1,0 +1,42 @@
+---
+title: Host a repeater (if you want)
+description: Tips for putting up a MeshCore repeater in the Missoula Valley.
+---
+import HardwareList from '../../components/HardwareList.astro';
+import { settings } from '../../lib/data.js';
+import { pathHashLabel } from '../../lib/path-hash.js';
+
+You do not need a repeater to use the mesh. But if you want to help it grow, this page has some tips.
+
+## What a repeater does
+
+A **repeater** is a MeshCore radio that passes messages along. It does not pair with a phone. It just listens and sends messages on.
+
+Height matters more than anything else. A repeater on a roof, a pole, or a hill can reach much farther than one in a window. Each new repeater helps everyone around it.
+
+## One Missoula example
+
+The repeater **MSO_LNC_MM_001** in the Lewis and Clark neighborhood is this one:
+
+<HardwareList role="repeater" triedHere={true} />
+
+It has its own solar panel and batteries, so it needs no wall power.
+
+## Setting it up
+
+1. **Connect to it.** Plug the repeater into a computer. Open [config.meshcore.io](https://config.meshcore.io/) in Chrome or Edge.
+2. **Match the valley settings.** Your repeater must use the same radio preset as everyone else: **{settings.radio.presetName}**. Set the path hash size to **{pathHashLabel(settings.pathHashMode)}**. Both are on the [device settings](/settings/) page.
+3. **Change the admin password.** The default is <code>password</code>. Anyone nearby can log in to your repeater until you change it.
+4. **Give it a name.** A tip: use the area name, not your street address.
+5. **Location is up to you.** A repeater can share its location on maps. If you share it, use a rough spot, not your exact house.
+6. **Leave the advert settings at their defaults.** An **advert** is a short message where the repeater says "I am here." The defaults keep the air quiet.
+
+After that, you can manage the repeater from the MeshCore app over the radio. Log in to it as admin. Some versions of the app charge a small fee for this.
+
+## Stay legal
+
+Do not add an amplifier. Radios that need no license in the US have power limits, and an amplifier can go over them.
+
+## Tell us about it
+
+Put up a repeater? [Tell us about it](/contact/), and we will add it to the [repeater list](/repeaters/).
