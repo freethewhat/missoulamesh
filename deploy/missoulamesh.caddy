@@ -2,7 +2,3 @@ __DOMAIN__ {
 	encode gzip
 	reverse_proxy missoulamesh:3200
 }
-
-www.__DOMAIN__ {
-	redir https://__DOMAIN__{uri} permanent
-}

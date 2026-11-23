@@ -51,6 +51,19 @@ You can deploy before you own the domain: do steps 5 to 8 now, and steps 1 to 4 
     - From another email account, send to `hello@missoulamesh.org`. It arrives in Gmail.
     - Logs: `docker compose logs app` in `/srv/apps/missoulamesh`.
 
+## Staging on a subdomain (meshcore.wa8zkr.com)
+
+Use this before `missoulamesh.org` is bought. Same server, same image, same steps as above, with these changes:
+
+- DNS (Namecheap, `wa8zkr.com`, Advanced DNS): A record, host `meshcore`, value: the droplet IP.
+- Step 9: `bash ~/missoulamesh-deploy/deploy/setup-app.sh meshcore.wa8zkr.com ghcr.io/freethewhat/missoulamesh`
+  A subdomain gets no `www` redirect.
+- Contact form without a verified domain: in `contact.env`, set
+  `CONTACT_FROM=onboarding@resend.dev` and `CONTACT_TO=` the email you signed up to Resend with.
+  Resend's test sender only delivers to that address.
+- Moving to `missoulamesh.org` later: run `setup-app.sh missoulamesh.org ghcr.io/freethewhat/missoulamesh` again.
+  It replaces the Caddy site file, so staging stops. `contact.env` is kept.
+
 ## Updating the site
 
 - Repeater status: edit `src/data/repeaters.json` (status, `lastChecked`), open a pull request, merge. The site deploys itself.

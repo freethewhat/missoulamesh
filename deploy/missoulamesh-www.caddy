@@ -1,0 +1,4 @@
+
+www.__DOMAIN__ {
+	redir https://__DOMAIN__{uri} permanent
+}

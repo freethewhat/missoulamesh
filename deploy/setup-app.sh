@@ -2,6 +2,7 @@
 # Per-app setup for missoulamesh (idempotent). Run as root on a server already set up
 # by hamlicenselookup's deploy/setup-server.sh:
 #   bash setup-app.sh missoulamesh.org ghcr.io/<owner>/<repo>
+#   bash setup-app.sh meshcore.wa8zkr.com ghcr.io/<owner>/<repo>   (staging; no www redirect)
 set -euo pipefail
 
 [ "$(id -u)" = 0 ] || { echo "run as root" >&2; exit 1; }
@@ -25,7 +26,15 @@ if [ ! -f "$APP/contact.env" ]; then
   echo "Created $APP/contact.env. Fill in RESEND_API_KEY and CONTACT_TO."
 fi
 
-sed "s|__DOMAIN__|$DOMAIN|g" "$HERE/missoulamesh.caddy" > /srv/apps/caddy/sites/missoulamesh.caddy
+# Main domains (one dot, like missoulamesh.org) also get a www redirect.
+# Subdomains (like a staging host) do not: www.<subdomain> usually has no DNS record,
+# and Caddy would keep failing to get a certificate for it.
+{
+  sed "s|__DOMAIN__|$DOMAIN|g" "$HERE/missoulamesh.caddy"
+  if [ "$(tr -cd . <<< "$DOMAIN" | wc -c)" -eq 1 ]; then
+    sed "s|__DOMAIN__|$DOMAIN|g" "$HERE/missoulamesh-www.caddy"
+  fi
+} > /srv/apps/caddy/sites/missoulamesh.caddy
 docker compose -f /srv/apps/caddy/docker-compose.yml exec caddy caddy reload --config /etc/caddy/Caddyfile
 
 echo "App setup done for $DOMAIN."
