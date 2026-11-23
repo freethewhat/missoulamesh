@@ -9,7 +9,6 @@
   --mm-rust-text: #e58a5c;
   --mm-line: #34483a;
   --mm-muted: #b9c4b4;
-  --mm-note-bg: #2a2a1f;
   --mm-tag-text: #1b2a20;
 
   --sl-color-white: #f4efe3;
@@ -33,7 +32,6 @@
   --mm-rust-text: #9a4520;
   --mm-line: #d8cfb8;
   --mm-muted: #5c5848;
-  --mm-note-bg: #fbe9dc;
   --mm-tag-text: #ffffff;
 
   --sl-color-white: #2b2a24;
@@ -58,16 +56,6 @@ h1#_top,
   font-family: var(--mm-heading-font);
 }
 .site-title { color: var(--mm-ink); }
-
-/* Note box: "not yet tested locally". */
-.mm-note {
-  background: var(--mm-note-bg);
-  border-inline-start: 4px solid var(--mm-rust);
-  padding: 0.75rem 1rem;
-  border-radius: 0 0.25rem 0.25rem 0;
-  color: var(--mm-ink);
-}
-.mm-note strong { color: var(--mm-rust-text); }
 
 /* Repeater status tags. */
 .mm-tag {

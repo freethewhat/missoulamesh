@@ -6,7 +6,6 @@ const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine((s) => {
 }, 'not a real calendar date');
 
 export const settingsSchema = z.object({
-  tested: z.boolean(),
   lastReviewed: isoDate,
   radio: z.object({
     presetName: z.string().min(1),

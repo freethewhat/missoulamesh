@@ -37,8 +37,8 @@ test('device settings page has no repeater commands or region list', () => {
   assert.doesNotMatch(readPage('/settings/'), /repeater-settings/);
 });
 
-test('device settings page shows the not-yet-tested note and FCC note', () => {
-  assert.match(readPage('/settings/'), /class="mm-note"/);
+test('device settings page has no untested note and shows the FCC note', () => {
+  assert.doesNotMatch(readPage('/settings/'), /class="mm-note"/);
   assert.ok(text().includes('issue #945'));
 });
 
