@@ -23,7 +23,8 @@ test('device settings page has the full radio settings table for nodes', () => {
 
 test('device settings page lists channels with the #missoula key', () => {
   const t = text();
-  for (const v of ['#missoula', '#montana', '#testing', '#emergency', 'Public']) assert.ok(t.includes(v), v);
+  for (const v of ['#missoula', '#testing', '#emergency', 'Public']) assert.ok(t.includes(v), v);
+  assert.ok(!t.includes('#montana'), 'no #montana channel');
   assert.ok(t.includes(channelKey('#missoula')));
 });
 

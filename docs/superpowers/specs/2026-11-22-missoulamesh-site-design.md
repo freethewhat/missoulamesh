@@ -176,7 +176,7 @@ The site shows only the settings a node (a person's own device) needs. Repeater 
 - Radio: USA/Canada (Recommended), 910.525 MHz, BW 62.5 kHz, SF 7, CR 5. Shown as a table on `/settings/`.
 - Path hash size: 1-byte (owner set the local mesh to 1-byte on 2026-11-22; other US groups use 2-byte).
 - Default region scope: blank.
-- Channels: Public, `#missoula`, `#montana`, `#testing`, `#emergency`. Show each hashtag channel's key for devices that cannot type `#`.
+- Channels: Public, `#missoula`, `#testing`, `#emergency`. Show each hashtag channel's key for devices that cannot type `#`.
 
 ## 10a. Look and feel (owner chose from mockups, 2026-11-22)
 

@@ -21,7 +21,7 @@
 - Repeaters are shown by neighborhood name only. Never an address or pin.
 - Launch repeater list: one entry, area "Lewis and Clark neighborhood", status `testing`. Do not list the other operator's repeater.
 - `settings.json` has `tested: false` at launch. While false, every page that shows settings shows the "not yet tested locally" note.
-- Radio: preset "USA/Canada (Recommended)", 910.525 MHz, BW 62.5 kHz, SF 7, CR 5, CLI `set radio 910.525,62.5,7,5`. Path hash mode 1 (2-byte). Regions `us-mt`, `us-mt-mso` (parent `us-mt`). Channels: Public, `#missoula`, `#montana`, `#testing`, `#emergency`.
+- Radio: preset "USA/Canada (Recommended)", 910.525 MHz, BW 62.5 kHz, SF 7, CR 5, CLI `set radio 910.525,62.5,7,5`. Path hash mode 1 (2-byte). Regions `us-mt`, `us-mt-mso` (parent `us-mt`). Channels: Public, `#missoula`, `#testing`, `#emergency`.
 - Colors (start points; adjust shades only to pass AA): light paper `#f4efe3`, ink `#2b2a24`, forest `#24452f`, rust `#b5562a`, line `#d8cfb8`; dark background `#1b2a20`, text `#f4efe3`, sage `#7fa98a`, light rust `#e58a5c`. Serif headings (Georgia stack), system sans body. System font stacks only.
 - App name `missoulamesh`, container `missoulamesh`, internal port `3200`, `mem_limit: 128m`, on the external `web` network.
 - Secrets (`RESEND_API_KEY`, `CONTACT_TO`) live only in `/srv/apps/missoulamesh/contact.env` (mode 600). Never in the repo or image.
@@ -144,7 +144,7 @@ deploy/
       "channels": [
         { "name": "Public", "type": "public" },
         { "name": "#missoula", "type": "hashtag" },
-        { "name": "#montana", "type": "hashtag" },
+        { "name": "type": "hashtag" },
         { "name": "#testing", "type": "hashtag" },
         { "name": "#emergency", "type": "hashtag" }
       ],
