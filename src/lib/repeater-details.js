@@ -3,6 +3,5 @@ export function repeaterDetails(r) {
   return [
     ['Name', r.name],
     ['Contact', r.contact],
-    ['Notes', r.notes],
   ].filter(([, v]) => v).map(([label, value]) => ({ label, value }));
 }

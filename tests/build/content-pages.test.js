@@ -32,7 +32,7 @@ test('home shows the compact repeater list', () => {
   const h = readPage('/');
   assert.match(h, /<ul class="mm-repeaters"/);
   assert.ok(pageText('/').includes('Lewis and Clark neighborhood'));
-  assert.ok(!pageText('/').includes('First Missoula Mesh repeater'), 'compact list hides notes');
+  assert.ok(!pageText('/').includes('MSO_LNC_MM_001'), 'compact list hides details');
 });
 test('home says the network is small', () => {
   assert.match(pageText('/'), /a small network/);

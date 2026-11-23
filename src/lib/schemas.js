@@ -29,7 +29,6 @@ export const repeaterSchema = z.object({
   area: z.string().min(1),
   status: z.enum(['testing', 'on-air', 'down', 'unknown']),
   contact: z.string().min(1).nullable(),
-  notes: z.string().min(1).nullable(),
 });
 
 export const repeatersSchema = z.array(repeaterSchema);
