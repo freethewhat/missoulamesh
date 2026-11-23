@@ -1,4 +1,5 @@
 import { test } from 'node:test';
+import { readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
 import { readPage, pageText, mainHtml } from './helpers.js';
 import { pathHashLabel } from '../../src/lib/path-hash.js';
@@ -47,4 +48,8 @@ test('host page gives no repeater CLI commands', () => {
 });
 test('hardware page links the host-a-repeater page', () => {
   assert.match(mainHtml('/hardware/'), /href="\/host-a-repeater\/"/);
+});
+
+test('host page example is picked by id, not by filter', () => {
+  assert.match(readFileSync(new URL('../../src/content/docs/host-a-repeater.mdx', import.meta.url), 'utf8'), /ids=\{\['sensecap-solar-p1-pro'\]\}/);
 });

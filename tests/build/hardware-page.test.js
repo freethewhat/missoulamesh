@@ -43,3 +43,7 @@ test('hardware page has the buying tips', () => {
   for (const v of ['915 MHz', 'antenna', 'earn nothing']) assert.ok(t.includes(v), v);
 });
 
+
+test('hardware page copy does not assume one device per section', () => {
+  assert.doesNotMatch(pageText('/hardware/'), /uses this one/);
+});

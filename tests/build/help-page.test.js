@@ -15,11 +15,23 @@ test('help page lists the symptoms in order', () => {
 });
 test('help page has the key fixes', () => {
   const t = pageText(R);
-  for (const v of ['123456', 'Chrome or Edge', 'data', 'Advert', 'clock', 'identity']) assert.ok(t.includes(v), v);
+  for (const v of ['123456', 'Chrome or Edge', 'data', 'Advert', 'wrong time', 'identity']) assert.ok(t.includes(v), v);
 });
 test('help page links settings, repeaters, contact, and the MeshCore FAQ', () => {
   const h = mainHtml(R);
   for (const href of ['/settings/', '/repeaters/', '/contact/', 'https://docs.meshcore.io/faq/']) {
     assert.match(h, new RegExp(`href="${href.replace(/[./]/g, '\\$&')}"`), href);
   }
+});
+
+test('help page clock tip is about the repeater, not your phone', () => {
+  const t = pageText(R);
+  assert.doesNotMatch(t, /phone's clock/);
+  assert.match(t, /wrong time/);
+});
+test('help page says to look on the screen for the pairing code', () => {
+  assert.match(pageText(R), /screen[^.]*code|code[^.]*screen/);
+});
+test('help page says to export settings before a full erase', () => {
+  assert.match(pageText(R), /Export your settings/);
 });
