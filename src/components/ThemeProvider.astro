@@ -1,0 +1,17 @@
+{/*
+  Replaces Starlight's ThemeProvider so light is the default.
+  localStorage 'starlight-theme' holds 'light', 'dark', or 'auto' only after the
+  visitor picks one in the theme menu. No stored value means light.
+  Inlined to avoid a flash of the wrong theme.
+*/}
+<script is:inline>
+	(() => {
+		let stored = null;
+		try { stored = localStorage.getItem('starlight-theme'); } catch { /* storage blocked */ }
+		const theme =
+			stored === 'dark' ? 'dark'
+			: stored === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+			: 'light';
+		document.documentElement.dataset.theme = theme;
+	})();
+</script>

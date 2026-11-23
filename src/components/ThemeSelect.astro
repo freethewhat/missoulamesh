@@ -1,0 +1,101 @@
+---
+// Replaces Starlight's ThemeSelect so light is the default and 'auto' is stored
+// as 'auto' (Starlight stores '' for auto, which here would mean light).
+// Nothing is written to localStorage until the visitor changes the menu.
+import { Icon } from '@astrojs/starlight/components';
+import Select from '@astrojs/starlight/components/Select.astro';
+---
+
+<starlight-theme-select>
+	<Select
+		label={Astro.locals.t('themeSelect.accessibleLabel')}
+		options={[
+			{ label: Astro.locals.t('themeSelect.dark'), selected: false, value: 'dark' },
+			{ label: Astro.locals.t('themeSelect.light'), selected: true, value: 'light' },
+			{ label: Astro.locals.t('themeSelect.auto'), selected: false, value: 'auto' },
+		]}
+		width="6.25em"
+	>
+		<Fragment slot="icon">
+			<Icon name="moon" class="sl-theme-icon-dark" />
+			<Icon name="sun" class="sl-theme-icon-light" />
+			<Icon name="laptop" class="sl-theme-icon-auto" />
+		</Fragment>
+	</Select>
+</starlight-theme-select>
+
+{/* Inlined to avoid a flash of the wrong menu value. */}
+<script
+	is:inline
+	set:html={`(() => {
+		let t = null;
+		try { t = localStorage.getItem('starlight-theme'); } catch {}
+		if (t === 'dark' || t === 'auto') document.querySelectorAll('starlight-theme-select select').forEach((s) => { s.value = t; });
+	})();`}
+></script>
+
+<style>
+	@layer starlight.components {
+		starlight-theme-select:has([value='dark']:not(:checked)) :global(.sl-theme-icon-dark),
+		starlight-theme-select:has([value='light']:not(:checked)) :global(.sl-theme-icon-light),
+		starlight-theme-select:has([value='auto']:not(:checked)) :global(.sl-theme-icon-auto) {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	type Theme = 'auto' | 'dark' | 'light';
+	const storageKey = 'starlight-theme';
+
+	/** Unknown or missing values mean light (the site default). */
+	const parseTheme = (theme: unknown): Theme =>
+		theme === 'auto' || theme === 'dark' ? theme : 'light';
+
+	function loadTheme(): Theme {
+		try {
+			return parseTheme(localStorage.getItem(storageKey));
+		} catch {
+			return 'light';
+		}
+	}
+
+	function storeTheme(theme: Theme): void {
+		try {
+			localStorage.setItem(storageKey, theme);
+		} catch {
+			/* storage blocked: the choice lasts for this page only */
+		}
+	}
+
+	const systemScheme = (): 'dark' | 'light' =>
+		matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+	function applyTheme(theme: Theme): void {
+		document
+			.querySelectorAll<HTMLSelectElement>('starlight-theme-select select')
+			.forEach((select) => {
+				select.value = theme;
+			});
+		document.documentElement.dataset.theme = theme === 'auto' ? systemScheme() : theme;
+	}
+
+	matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+		if (loadTheme() === 'auto') applyTheme('auto');
+	});
+
+	class StarlightThemeSelect extends HTMLElement {
+		constructor() {
+			super();
+			applyTheme(loadTheme());
+			this.querySelector('select')?.addEventListener('change', (e) => {
+				if (e.currentTarget instanceof HTMLSelectElement) {
+					const theme = parseTheme(e.currentTarget.value);
+					applyTheme(theme);
+					storeTheme(theme);
+				}
+			});
+		}
+	}
+	customElements.define('starlight-theme-select', StarlightThemeSelect);
+</script>
