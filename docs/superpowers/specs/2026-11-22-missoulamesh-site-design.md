@@ -107,7 +107,7 @@ For missoulamesh:
 
 Every page that shows a setting or a repeater reads it from these files. No value is typed into a page by hand.
 
-**Repeater list at launch (owner's decision):** one entry, the owner's repeater, area "Lewis and Clark neighborhood", status `testing`. Do not list the other operator's repeater until the owner has talked to that operator. Areas are neighborhood names for now. A map may replace them later.
+**Repeater list at launch (owner's decision, updated 2026-11-22):** two entries. (1) The owner's repeater `MSO_LNC_MM_001`, area "Lewis and Clark neighborhood", status `testing`. (2) Another operator's repeater `MSLAMT_MTC_Repeater_BASE`, area "Franklin to the Fort neighborhood", status `unknown` until the owner confirms it. Areas are neighborhood names for now. A map may replace them later.
 
 **Old status (designer's call):** the page shows the stored status and the last-checked date. If the date is more than 30 days old, a small self-hosted script in the browser shows "status unknown, last checked <date>" in place of the stored status. With JavaScript off, the date is still shown. No scheduled rebuild.
 

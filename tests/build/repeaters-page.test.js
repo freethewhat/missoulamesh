@@ -26,3 +26,13 @@ test('repeater list is wrapped in the mm-repeaters element that runs the stale c
   assert.match(readPage('/repeaters/'), /<mm-repeaters[\s>]/);
 });
 
+
+test('Lewis and Clark repeater shows its name MSO_LNC_MM_001', () => {
+  assert.match(pageText('/repeaters/'), /Lewis and Clark neighborhood.*Name: MSO_LNC_MM_001/);
+});
+
+test('Franklin to the Fort repeater is listed with its name', () => {
+  const t = pageText('/repeaters/');
+  assert.ok(t.includes('Franklin to the Fort neighborhood'));
+  assert.match(t, /Franklin to the Fort neighborhood.*Name: MSLAMT_MTC_Repeater_BASE/);
+});

@@ -1,11 +1,20 @@
 [
   {
     "id": "lewis-and-clark-1",
-    "name": null,
+    "name": "MSO_LNC_MM_001",
     "area": "Lewis and Clark neighborhood",
     "status": "testing",
     "lastChecked": "2026-11-22",
     "contact": null,
     "notes": "First Missoula Mesh repeater. Being tested this week."
+  },
+  {
+    "id": "franklin-to-the-fort-1",
+    "name": "MSLAMT_MTC_Repeater_BASE",
+    "area": "Franklin to the Fort neighborhood",
+    "status": "unknown",
+    "lastChecked": "2026-11-22",
+    "contact": null,
+    "notes": "Run by another local operator."
   }
 ]
