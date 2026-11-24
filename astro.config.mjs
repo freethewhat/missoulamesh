@@ -11,7 +11,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'Missoula Mesh',
-      logo: { light: './src/assets/badge-light.svg', dark: './src/assets/badge-dark.svg', alt: '' },
+      logo: { src: './src/assets/badge.svg', alt: '' },
       favicon: '/favicon.svg',
       customCss: ['@fontsource-variable/recursive/wght.css', './src/styles/theme.css'],
       components: {

@@ -4,8 +4,8 @@ import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { DIST, readPage } from './helpers.js';
 
-test('home page shows the trail badge logo', () => {
-  assert.match(readPage('/'), /<img[^>]+badge-light[^>]*>/);
+test('home page shows the badge logo', () => {
+  assert.match(readPage('/'), /<img[^>]+badge\.[^>]*>/);
 });
 
 test('favicon.svg is published', () => {

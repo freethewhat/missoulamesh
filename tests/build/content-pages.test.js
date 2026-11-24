@@ -34,6 +34,12 @@ test('home shows the compact repeater list', () => {
   assert.ok(pageText('/').includes('Lewis and Clark neighborhood'));
   assert.ok(!pageText('/').includes('MSO_LNC_MM_001'), 'compact list hides details');
 });
+test('home shows repeaters and join steps side by side', () => {
+  const h = readPage('/');
+  assert.match(h, /<div class="mm-columns">[\s\S]*<h2[^>]*>Repeaters<\/h2>[\s\S]*<h2[^>]*>Join in three steps<\/h2>/);
+  assert.match(h, /<ol class="mm-steps mm-steps--compact">/);
+  for (const href of ['/hardware/', '/settings/', '/start/']) assert.match(h, new RegExp(`href="${href}"`), href);
+});
 test('home says the network is small', () => {
   assert.match(pageText('/'), /a small network/);
 });

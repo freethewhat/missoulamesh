@@ -161,6 +161,18 @@ h1#_top { color: var(--mm-heading); }
 .mm-steps > li:nth-child(3n + 2)::before { background: var(--mm-river); color: #ffffff; }
 .mm-steps > li:nth-child(3n)::before { background: var(--mm-larch); color: var(--mm-larch-ink); }
 
+/* Home page: repeaters and join steps side by side. They stack on narrow screens. */
+.sl-markdown-content .mm-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 1.5rem 3rem;
+  margin-top: 2rem;
+}
+.sl-markdown-content .mm-columns > * { margin-top: 0; min-width: 0; }
+.sl-markdown-content .mm-columns > * > :first-child { margin-top: 0; }
+.mm-steps--compact > li { margin: 1rem 0; }
+.mm-steps--compact > li:first-child { margin-top: 0.75rem; }
+
 /* Home hero: a purple sky over three teal ridges, with gold radio waves spreading from the summit. */
 .mm-hero {
   position: relative;
