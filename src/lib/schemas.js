@@ -27,7 +27,7 @@ export const repeaterSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
   name: z.string().min(1).nullable(),
   area: z.string().min(1),
-  status: z.enum(['testing', 'on-air', 'down', 'unknown']),
+  status: z.enum(['on-air', 'down', 'unknown']),
   contact: z.string().min(1).nullable(),
 });
 
