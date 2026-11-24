@@ -17,3 +17,13 @@ test('built CSS carries the huckleberry purple', () => {
   const css = readdirSync(dir).filter((f) => f.endsWith('.css')).map((f) => readFileSync(join(dir, f), 'utf8')).join('\n');
   assert.match(css, /#4a1f73/i);
 });
+
+test('home hero has stars and foreground foothills, no mesh links', () => {
+  const h = readPage('/');
+  const stars = h.match(/<svg class="mm-stars"[\s\S]*?<\/svg>/);
+  assert.ok(stars, 'stars layer');
+  assert.ok((stars[0].match(/<circle/g) || []).length >= 30, 'at least 30 stars');
+  assert.ok(!/mm-mesh|mm-nodes/.test(h), 'no mesh links');
+  assert.match(h, /class="mm-foothill-near"/);
+  assert.match(h, /class="mm-foothill-nearest"/);
+});

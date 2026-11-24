@@ -2,8 +2,24 @@
 // Summit of the tall peak, in viewBox units. The radio waves are centred here.
 const peak = { x: 930, y: 62 };
 const waves = [44, 84, 130, 182, 240, 304, 374];
+
+// Stars: fixed pseudo-random positions so every build draws the same sky.
+let seed = 7;
+const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+const stars = Array.from({ length: 70 }, (_, i) => ({
+  x: Math.round(rand() * 1200),
+  y: Math.round(rand() * 300),
+  r: (rand() < 0.15 ? 1.8 : 1 + rand() * 0.6).toFixed(1),
+  o: (0.35 + rand() * 0.6).toFixed(2),
+  twinkle: i % 9 === 0,
+}));
 ---
 <section class="mm-hero" aria-labelledby="mm-hero-title">
+  <svg class="mm-stars" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    {stars.map((s) => (
+      <circle cx={s.x} cy={s.y} r={s.r} opacity={s.o} class={s.twinkle ? 'mm-twinkle' : undefined} />
+    ))}
+  </svg>
   <svg class="mm-hero-art" viewBox="0 0 1200 320" preserveAspectRatio="xMaxYMax meet" aria-hidden="true" focusable="false">
     <g class="mm-waves" fill="none">
       {waves.map((r, i) => (
@@ -14,6 +30,9 @@ const waves = [44, 84, 130, 182, 240, 304, 374];
     <path class="mm-range-mid" d="M0 320 L0 280 L150 266 L300 276 L440 250 L580 262 L700 226 L800 240 L880 196 L960 206 L1060 176 L1200 192 L1200 320 Z" />
     <path class="mm-range-front" d={`M0 320 L0 290 L120 276 L240 286 L370 262 L480 274 L600 238 L700 252 L790 186 L860 128 L${peak.x} ${peak.y} L990 118 L1040 104 L1110 164 L1200 150 L1200 320 Z`} />
     <circle class="mm-summit" cx={peak.x} cy={peak.y} r="7" />
+    {/* Rounded foothills close to the viewer. Lighter as they get nearer, for depth. */}
+    <path class="mm-foothill-near" d="M0 320 L0 286 Q90 262 200 280 Q320 300 430 276 Q540 254 650 282 Q760 306 880 284 Q990 262 1090 286 Q1150 300 1200 288 L1200 320 Z" />
+    <path class="mm-foothill-nearest" d="M0 320 L0 304 Q120 288 250 302 Q400 318 540 298 Q680 280 820 304 Q960 322 1080 300 Q1150 290 1200 298 L1200 320 Z" />
   </svg>
   <div class="mm-hero-text">
     <h1 id="mm-hero-title">Missoula Mesh</h1>
