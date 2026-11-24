@@ -3,7 +3,7 @@ import { repeaters } from '../lib/data.js';
 import { repeaterDetails } from '../lib/repeater-details.js';
 interface Props { compact?: boolean }
 const { compact = false } = Astro.props;
-const label = { 'on-air': 'On the air', down: 'Down', unknown: 'Status unknown' };
+const label = { testing: 'Testing', 'on-air': 'On the air', down: 'Down', unknown: 'Status unknown' };
 ---
 {repeaters.length === 0 ? (
   <p>No repeaters are listed yet.</p>

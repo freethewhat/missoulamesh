@@ -117,6 +117,7 @@ h1#_top { color: var(--mm-heading); }
   color: #ffffff;
   background: var(--mm-river);
 }
+.mm-tag--testing { background: var(--mm-larch); color: var(--mm-larch-ink); }
 .mm-tag--on-air { background: var(--mm-river); color: #ffffff; }
 .mm-tag--down { background: #6b1f1f; color: #ffffff; }
 .mm-tag--unknown { background: var(--mm-muted); color: var(--sl-color-black); }
