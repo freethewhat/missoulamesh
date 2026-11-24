@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import sitemap from '@astrojs/sitemap';
 import starlightLinksValidator from 'starlight-links-validator';
 
 export default defineConfig({
@@ -20,6 +21,14 @@ export default defineConfig({
         ThemeSelect: './src/components/ThemeSelect.astro',
       },
       description: 'Western Montana MeshCore: off-grid text messages, built by neighbors in the Missoula Valley.',
+      // Link-preview picture for every page. Rebuild it with: node scripts/og-image.js
+      head: [
+        { tag: 'meta', attrs: { property: 'og:image', content: 'https://missoulamesh.org/og-image.png' } },
+        { tag: 'meta', attrs: { property: 'og:image:width', content: '1200' } },
+        { tag: 'meta', attrs: { property: 'og:image:height', content: '630' } },
+        { tag: 'meta', attrs: { property: 'og:image:alt', content: 'Missoula Mesh: radio waves over a mountain peak at night.' } },
+        { tag: 'meta', attrs: { name: 'twitter:image', content: 'https://missoulamesh.org/og-image.png' } },
+      ],
       plugins: [starlightLinksValidator()],
       sidebar: [
         {
@@ -44,5 +53,7 @@ export default defineConfig({
         },
       ],
     }),
+    // Keep the contact form's result pages out of search. They are also marked noindex.
+    sitemap({ filter: (page) => !page.includes('/contact/thanks/') && !page.includes('/contact/error/') }),
   ],
 });

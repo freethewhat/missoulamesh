@@ -53,6 +53,8 @@ export function createApp({ distDir, sendMail, csp, rateLimit: rl = { windowMs: 
   // eslint-disable-next-line no-unused-vars
   app.use('/api/contact', (err, req, res, next) => res.redirect(303, ERROR('invalid')));
 
+  // Files in /_astro/ have a content hash in their name, so they never change. Let browsers keep them.
+  app.use('/_astro', express.static(join(distDir, '_astro'), { immutable: true, maxAge: '1y' }));
   app.use(express.static(distDir));
 
   app.use((req, res) => {
