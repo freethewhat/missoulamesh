@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { settingsSchema, repeatersSchema, hardwareSchema } from '../../src/lib/schemas.js';
+import { settingsSchema, repeatersSchema, hardwareSchema, roomServerSchema } from '../../src/lib/schemas.js';
 
 const load = (f) => JSON.parse(readFileSync(new URL(`../../src/data/${f}`, import.meta.url)));
 const settings = load('settings.json');
@@ -41,4 +41,11 @@ test('hardware role router is rejected', () => {
 test('hardware Feb 30 lastChecked is rejected', () => {
   const h = clone(hardware()); h[0].lastChecked = '2026-02-30';
   assert.equal(hardwareSchema.safeParse(h).success, false);
+});
+
+const room = () => load('room-server.json');
+test('real room-server.json passes', () => { roomServerSchema.parse(room()); });
+test('room server public key that is too short is rejected', () => {
+  const r = room(); r.publicKey = r.publicKey.slice(0, 10);
+  assert.equal(roomServerSchema.safeParse(r).success, false);
 });
