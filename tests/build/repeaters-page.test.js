@@ -2,14 +2,13 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readPage, pageText } from './helpers.js';
 
-test('Lewis and Clark repeater is testing', () => {
+test('Lewis and Clark repeater is on the air', () => {
   const html = readPage('/repeaters/');
-  assert.match(html, /<li data-status="testing"[^>]*>\s*<span class="mm-area"[^>]*>Lewis and Clark neighborhood/);
-  assert.match(html, /mm-tag--testing/);
+  assert.match(html, /<li data-status="on-air"[^>]*>\s*<span class="mm-area"[^>]*>Lewis and Clark neighborhood/);
 });
 
-test('Lewis and Clark repeater has a note that the link is shaky', () => {
-  assert.match(pageText('/repeaters/'), /Lewis and Clark neighborhood.*Note: It is live, but the link is shaky\. We are working on it\./);
+test('Lewis and Clark repeater has a note about intermittent link issues', () => {
+  assert.match(pageText('/repeaters/'), /Lewis and Clark neighborhood.*Note: It is active and ready\. We are having intermittent link issues\. More nodes would help\./);
 });
 
 test('legend explains the Testing label', () => {

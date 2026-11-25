@@ -3,9 +3,9 @@
     "id": "lewis-and-clark-1",
     "name": "MSO_LNC_MM_001",
     "area": "Lewis and Clark neighborhood",
-    "status": "testing",
+    "status": "on-air",
     "contact": null,
-    "note": "It is live, but the link is shaky. We are working on it."
+    "note": "It is active and ready. We are having intermittent link issues. More nodes would help."
   },
   {
     "id": "franklin-to-the-fort-1",
