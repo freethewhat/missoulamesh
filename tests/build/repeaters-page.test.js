@@ -8,7 +8,7 @@ test('Lewis and Clark repeater is on the air', () => {
 });
 
 test('Lewis and Clark repeater has a note about intermittent link issues', () => {
-  assert.match(pageText('/repeaters/'), /Lewis and Clark neighborhood.*Note: It is active and ready\. We are having intermittent link issues\. More nodes would help\./);
+  assert.match(pageText('/repeaters/'), /Lewis and Clark neighborhood.*Note: We are having intermittent link issues\. More nodes would help\./);
 });
 
 test('legend explains the Testing label', () => {
