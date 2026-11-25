@@ -5,13 +5,14 @@
     "area": "Lewis and Clark neighborhood",
     "status": "on-air",
     "contact": null,
-    "note": "We are having intermittent link issues. More nodes would help."
+    "note": "Both repeaters are working. The link between them is having issues. We are looking to add more repeaters."
   },
   {
     "id": "franklin-to-the-fort-1",
     "name": "MSLAMT_MTC_Repeater_BASE",
     "area": "Franklin to the Fort neighborhood",
     "status": "on-air",
-    "contact": null
+    "contact": null,
+    "note": "Both repeaters are working. The link between them is having issues. We are looking to add more repeaters."
   }
 ]
