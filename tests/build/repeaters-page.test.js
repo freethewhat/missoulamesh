@@ -7,9 +7,11 @@ test('Lewis and Clark repeater is on the air', () => {
   assert.match(html, /<li data-status="on-air"[^>]*>\s*<span class="mm-area"[^>]*>Lewis and Clark neighborhood/);
 });
 
-test('Lewis and Clark repeater has a note about intermittent link issues', () => {
-  assert.match(pageText('/repeaters/'), /Lewis and Clark neighborhood.*Note: We are having intermittent link issues\. More nodes would help\./);
-});
+for (const area of ['Lewis and Clark', 'Franklin to the Fort']) {
+  test(`${area} repeater has a note about the link between repeaters`, () => {
+    assert.match(pageText('/repeaters/'), new RegExp(`${area} neighborhood.*Note: Both repeaters are working\\. The link between them is having issues\\. We are looking to add more repeaters\\.`));
+  });
+}
 
 test('legend explains the Testing label', () => {
   assert.match(pageText('/repeaters/'), /Testing: it is up, but we are still checking it\./);
