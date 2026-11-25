@@ -47,18 +47,17 @@ test('home invites valley operators to contact', () => {
   assert.ok(link(readPage('/'), '/contact/', 'Already running MeshCore in the valley?'));
 });
 
-test('start has 7 steps in order', () => {
+test('start has 4 steps in order', () => {
   const h = readPage('/start/');
   const ol = h.match(/<ol class="mm-steps">([\s\S]*?)<\/ol>/);
   assert.ok(ol, 'mm-steps list');
   const items = ol[1].split(/<li[\s>]/).slice(1);
-  assert.equal(items.length, 7);
-  const want = [/What you need[\s\S]*\/hardware\/[\s\S]*play\.google\.com[\s\S]*apps\.apple\.com[\s\S]*app\.meshcore\.nz/, /repeater list/, /flasher\.meshcore\.io/, /USA\/Canada \(Recommended\)/, /#missoula/, /reply/, /\/help\/[\s\S]*\/contact\//];
+  assert.equal(items.length, 4);
+  const want = [/What you need[\s\S]*\/hardware\/[\s\S]*play\.google\.com[\s\S]*apps\.apple\.com[\s\S]*app\.meshcore\.nz/, /flasher\.meshcore\.io/, /USA\/Canada \(Recommended\)/, /#missoula[\s\S]*reply/];
   want.forEach((re, i) => assert.match(items[i], re, `step ${i + 1}`));
 });
-test('start says what to do when no repeater is near', () => {
-  const t = pageText('/start/');
-  for (const v of ['contact form', 'repeater', 'high ground']) assert.ok(t.includes(v), v);
+test('start does not ask people to find a repeater first', () => {
+  assert.doesNotMatch(mainHtml('/start/'), /href="\/repeaters\/"/);
 });
 test('start sets path hash size from settings (1-byte) and blank region scope', () => {
   const t = pageText('/start/');
@@ -66,10 +65,12 @@ test('start sets path hash size from settings (1-byte) and blank region scope', 
   assert.doesNotMatch(t, /2-byte/);
   assert.match(t, /region scope/i);
 });
-test('start links the repeater list and flasher', () => {
+test('start links the flasher, the pair step anchor, and help', () => {
   const h = readPage('/start/');
-  assert.match(h, /href="\/repeaters\/"/);
   assert.match(h, /href="https:\/\/flasher\.meshcore\.io\/?"/);
+  assert.match(h, /<li id="pair"/);
+  assert.match(h, /href="\/help\/"/);
+  assert.match(h, /href="\/contact\/"/);
 });
 test('start has no untested note', () => {
   assert.doesNotMatch(readPage('/start/'), /class="mm-note"/);
@@ -81,6 +82,25 @@ test('meshtastic page links only the Ravalli Mesh home page', () => {
 });
 test('meshtastic page says the radios cannot talk to each other', () => {
   assert.match(pageText('/meshtastic/'), /cannot talk to each other/);
+});
+test('meshtastic page explains how to switch a Meshtastic radio to MeshCore', () => {
+  const h = readPage('/meshtastic/');
+  assert.match(h, /<h2 id="already-have-a-meshtastic-radio"/);
+  assert.match(h, /href="https:\/\/flasher\.meshcore\.io\/?"/);
+  assert.match(h, /href="\/start\/#pair"/);
+  assert.match(h, /href="https:\/\/flasher\.meshtastic\.org\/?"/);
+});
+test('faq answers the reflash question and links the meshtastic page', () => {
+  const h = readPage('/faq/');
+  assert.match(pageText('/faq/'), /Can I put MeshCore on my Meshtastic radio\?/);
+  assert.match(h, /href="\/meshtastic\/#already-have-a-meshtastic-radio"/);
+});
+test('start has a sidebar for Meshtastic owners', () => {
+  const h = readPage('/start/');
+  const aside = h.match(/<aside[^>]*starlight-aside[\s\S]*?<\/aside>/);
+  assert.ok(aside, 'aside');
+  assert.match(aside[0], /Meshtastic/);
+  assert.match(aside[0], /href="\/meshtastic\/#already-have-a-meshtastic-radio"/);
 });
 test('meshtastic page copies no meetup dates', () => {
   assert.doesNotMatch(pageText('/meshtastic/'), /(January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}/);
