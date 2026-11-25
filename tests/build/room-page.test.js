@@ -15,7 +15,12 @@ test('room page shows the name, key, and blank password', () => {
   const t = pageText(R);
   assert.ok(t.includes(room.name), 'name');
   assert.ok(t.includes(room.publicKey), 'public key');
-  assert.ok(t.includes('Leave the password blank'), 'password');
+  assert.ok(t.includes('There is no password'), 'password');
+});
+test('room page says you must log in to see the room', () => {
+  const t = pageText(R);
+  assert.ok(t.includes('You must log in to see the room.'), 'step');
+  assert.ok(t.includes('None. Leave it blank, then log in.'), 'facts');
 });
 test('room page links the add-contact URI with type 3', () => {
   const h = mainHtml(R).replace(/&amp;/g, '&');
