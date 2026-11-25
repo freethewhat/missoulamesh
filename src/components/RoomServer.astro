@@ -1,0 +1,27 @@
+---
+// The room server's add-contact QR code, link, and public key, from room-server.json.
+// The QR image is public/room-qr.svg, made by hand and recolored to the theme. Make it again if the key changes.
+import { roomServer, repeaters } from '../lib/data.js';
+import { contactUri } from '../lib/contact-uri.js';
+
+const uri = contactUri({ name: roomServer.name, publicKey: roomServer.publicKey, type: 'room' });
+const near = repeaters.find((r) => r.id === roomServer.nearRepeater);
+---
+<div class="mm-room">
+  <figure class="mm-room-qr">
+    <img src="/room-qr.svg" alt={`QR code to add ${roomServer.name} as a contact`} width="192" height="192" />
+    <figcaption>Scan in the MeshCore app</figcaption>
+  </figure>
+  <dl class="mm-room-facts">
+    <dt>Name</dt>
+    <dd><strong>{roomServer.name}</strong></dd>
+    <dt>Near</dt>
+    <dd>{near.name ? `${near.name} (${near.area})` : near.area}</dd>
+    <dt>Password</dt>
+    <dd>None. Leave it blank.</dd>
+    <dt>Link</dt>
+    <dd><a href={uri}>Add the room in the MeshCore app</a></dd>
+    <dt>Public key</dt>
+    <dd><code class="mm-room-key">{roomServer.publicKey}</code></dd>
+  </dl>
+</div>

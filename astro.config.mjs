@@ -45,6 +45,7 @@ export default defineConfig({
         {
           label: 'Community',
           items: [
+            { label: 'Room server', link: '/room/' },
             { label: 'Host a repeater', link: '/host-a-repeater/' },
             { label: 'Contact', link: '/contact/' },
             { label: 'Meshtastic?', link: '/meshtastic/' },

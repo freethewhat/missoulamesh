@@ -16,6 +16,7 @@ Target: WCAG 2.2 AA, light and dark.
 | Date | Pages | What was checked | Result |
 |---|---|---|---|
 | 2026-11-22 | `/`, `/start/` | Tab through every focusable element in light theme. Order: skip link, site title, search, theme select, (sidebar on `/start/`), page content links. Every element showed a visible focus ring (Starlight default or the 3 px custom ring on home buttons and form controls). | Pass |
+| 2026-11-25 | `/room/` | Screenshots in light and dark at 1100 px. The QR code sits on a white tile in both themes (huckleberry dots, river corners). It still decodes with zbarimg at 192, 300, and 600 px. The image has alt text. The public key wraps at 320 px. | Pass |
 
 ## Fixes made
 

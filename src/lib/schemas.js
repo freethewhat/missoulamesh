@@ -47,3 +47,9 @@ export const hardwareSchema = z.array(z.object({
   triedHere: z.boolean(),
   lastChecked: isoDate,
 }));
+
+export const roomServerSchema = z.object({
+  name: z.string().min(1),
+  publicKey: z.string().regex(/^[0-9A-Fa-f]{64}$/, 'public key is 64 hex characters'),
+  nearRepeater: z.string().regex(/^[a-z0-9-]+$/),
+});
