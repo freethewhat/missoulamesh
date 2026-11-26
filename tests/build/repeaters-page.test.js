@@ -21,8 +21,10 @@ test('repeaters page shows no checked dates', () => {
   assert.ok(!/Last checked/.test(pageText('/repeaters/')));
 });
 
-test('repeaters page says it shows areas, not exact locations', () => {
-  assert.match(pageText('/repeaters/'), /not exact locations/i);
+test('repeaters page says the map shows where repeaters are', () => {
+  const t = pageText('/repeaters/');
+  assert.match(t, /The map shows where each repeater is/);
+  assert.doesNotMatch(t, /not exact locations/i);
 });
 
 test('repeaters page invites valley operators to the contact page', () => {
@@ -66,18 +68,15 @@ test('map has an accessible name that points to the summary', () => {
   assert.match(mapDiv(), /aria-label="[^"]*[Ss]ummary[^"]*"/);
 });
 
-test('coverage map has legend, date, summary, and credits as page text', () => {
+test('coverage map has legend, date, and summary as page text, and no credit line', () => {
   const t = pageText('/repeaters/');
   assert.match(t, /Reached a repeater/);
   assert.doesNotMatch(t, /No reply/);
   assert.match(t, /Last updated Nov 26, 2026\. Coverage changes with weather, hills, and your antenna, so treat this as a rough guide\./);
   assert.doesNotMatch(t, /driving around/);
   assert.match(t, /Other areas have not been tested yet\./);
-  assert.match(t, /Coverage data: MeshMapper/);
-  assert.match(t, /© OpenStreetMap contributors/);
-  const h = mainHtml('/repeaters/');
-  assert.match(h, /href="https:\/\/www\.openstreetmap\.org\/copyright"/);
-  assert.match(h, /href="https:\/\/meshmapper\.net\/"/);
+  assert.doesNotMatch(t, /Coverage data: MeshMapper/);
+  assert.doesNotMatch(mainHtml('/repeaters/'), /mm-cov-credits/);
 });
 
 test('Leaflet loads from unpkg pinned to 1.9.4 with integrity checks', () => {
@@ -90,8 +89,17 @@ test('only the repeaters page loads Leaflet', () => {
   assert.doesNotMatch(readPage('/'), /unpkg\.com/);
 });
 
-test('coverage map has no repeater markers', () => {
-  assert.doesNotMatch(mainHtml('/repeaters/'), /mm-coverage-repeater|<circle/);
+test('map element carries every repeater location, with no names', () => {
+  const m = mapDiv().match(/data-repeaters="([^"]*)"/);
+  assert.ok(m, 'data-repeaters');
+  const sites = JSON.parse(decode(m[1]));
+  assert.equal(sites.length, 2);
+  assert.ok(sites.every((r) => Object.keys(r).sort().join() === 'lat,lon'));
+});
+
+test('legend shows the repeater marker', () => {
+  assert.match(pageText('/repeaters/'), /Repeater/);
+  assert.match(mainHtml('/repeaters/'), /<li[^>]*><svg[^>]*>.*?class="mm-repeater-swatch".*?<\/svg>\s*Repeater<\/li>/s);
 });
 
 test('page is called Repeaters and coverage', () => {
@@ -115,4 +123,8 @@ test('menu has one entry for repeaters and coverage', () => {
 
 test('home page links to the coverage map', () => {
   assert.match(mainHtml('/'), /<a href="\/repeaters\/#coverage-map">coverage map<\/a>/);
+});
+
+test('no zoom tip under the map', () => {
+  assert.doesNotMatch(pageText('/repeaters/'), /pinch, or double-tap/);
 });

@@ -1,0 +1,7 @@
+{
+  "note": "Where repeaters are, for the coverage map. No names. Taken from a MeshCore map screenshot on 2026-11-26.",
+  "sites": [
+    { "lat": 46.86561, "lon": -114.04412 },
+    { "lat": 46.83874, "lon": -114.00995 }
+  ]
+}

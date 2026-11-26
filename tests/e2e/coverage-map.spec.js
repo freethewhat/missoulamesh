@@ -25,7 +25,11 @@ test('coverage map draws streets and every square, with no errors or unexpected 
   await expect(map).toHaveClass(/leaflet-container/);
   await expect(map.locator('.leaflet-tile-pane img.leaflet-tile-loaded').first()).toBeVisible();
   const cells = JSON.parse(await map.getAttribute('data-cells'));
-  await expect(map.locator('.leaflet-overlay-pane path')).toHaveCount(cells.length);
+  const sites = JSON.parse(await map.getAttribute('data-repeaters'));
+  await expect(map.locator('.leaflet-overlay-pane path.mm-repeater-pin')).toHaveCount(sites.length);
+  await expect(map.locator('.leaflet-overlay-pane path')).toHaveCount(cells.length + sites.length);
+  // OpenStreetMap's tile rules require a credit on the map itself.
+  await expect(map.locator('.leaflet-control-attribution a[href="https://www.openstreetmap.org/copyright"]')).toHaveText('OpenStreetMap');
   await page.waitForLoadState('networkidle');
   expect(problems).toEqual([]);
   expect(offsite).toEqual([]);
@@ -92,12 +96,11 @@ test('squares line up with the street map (no page spacing pushed into the map)'
   expect(Math.abs(tops.squares - tops.tiles)).toBeLessThan(0.5);
 });
 
-test('without JavaScript, no empty map box or zoom tip shows', async ({ browser }) => {
+test('without JavaScript, no empty map box shows', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto('/repeaters/');
   await expect(page.locator('.mm-coverage-map')).toBeHidden();
-  await expect(page.locator('.mm-cov-tip')).toBeHidden();
   await expect(page.getByText('Other areas have not been tested yet.')).toBeVisible();
   await context.close();
 });

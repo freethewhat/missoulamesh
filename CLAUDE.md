@@ -16,6 +16,7 @@ Missoula Mesh: a community site for MeshCore radio users in western Montana. It 
 - `npm run lint`: ESLint.
 - `npm start`: serve `dist/` on port 3200 (env: `PORT`, `HOST`, `DIST_DIR`, `RESEND_API_KEY`, `CONTACT_TO`, `CONTACT_FROM`).
 - `node scripts/og-image.js`: rebuild `public/og-image.png` and `public/logo.png` from the SVGs in `src/assets/`. Run it by hand after you change those SVGs.
+- `node scripts/coverage-from-screenshot.js <screenshot.png> [--crop x,y,w,h] [--write --as-of YYYY-MM-DD]`: add new reply squares from a MeshMapper screenshot to `src/data/coverage.json`. Dry run by default; writes a check picture. How-to: `docs/coverage-updates.md`.
 
 CI (`.github/workflows/ci-deploy.yml`) runs lint, build, test, e2e, and a Docker build. A push to `main` also deploys.
 

@@ -35,6 +35,8 @@
   --mm-map-bg: #1c1915;
   --mm-map-road: #0d0d0d;
   --mm-cov-reached: #bc96e4;
+  --mm-map-repeater: #f2b01e;
+  --mm-map-repeater-ring: #1c1915;
 
   --sl-font: var(--mm-font);
   --sl-color-white: #f3eefa;
@@ -67,6 +69,8 @@
   --mm-map-bg: #f2efe9;
   --mm-map-road: #ffffff;
   --mm-cov-reached: #6a2f86;
+  --mm-map-repeater: #0d7268;
+  --mm-map-repeater-ring: #ffffff;
 
   --sl-color-white: #1e1530;
   --sl-color-gray-1: #2c2240;
