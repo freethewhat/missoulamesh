@@ -17,7 +17,11 @@ Target: WCAG 2.2 AA, light and dark.
 |---|---|---|---|
 | 2026-11-22 | `/`, `/start/` | Tab through every focusable element in light theme. Order: skip link, site title, search, theme select, (sidebar on `/start/`), page content links. Every element showed a visible focus ring (Starlight default or the 3 px custom ring on home buttons and form controls). | Pass |
 | 2026-11-25 | `/room/` | Screenshots in light and dark at 1100 px. The QR code sits on a white tile in both themes (huckleberry dots, river corners). It still decodes with zbarimg at 192, 300, and 600 px. The image has alt text. The public key wraps at 320 px. | Pass |
+| 2026-11-26 | `/repeaters/` | Leaflet coverage map (Leaflet from unpkg, OpenStreetMap tiles), screenshots in light and dark at 1100 px, at the opening view and after panning far from town. Square outlines vs map land and streets: light (#f2efe9 / #ffffff) reached 8.0:1 / 8.9:1; dark tiles use a CSS filter (land #1c1915 measured) reached 7.1:1 (pinned by `tests/build/theme.test.js`). The map shows one kind of square (a repeater replied), so nothing depends on telling colors apart. Map takes Tab focus with a visible ring; arrow keys pan, + and − zoom; mouse wheel scrolls the page. The on-map OpenStreetMap credit uses the page colors. The text summary under the map is the text alternative; without JavaScript the map box is hidden. | Pass |
 
 ## Fixes made
+
+- Coverage map: the dark-theme purple was too faint against dark map roads. Lightened to #bc96e4.
+- Coverage map: Starlight's spacing between page elements pushed Leaflet's square layer 16 px down, so squares sat south of their streets. The map box now has `not-content`, and an e2e test checks the layers line up.
 
 - Starlight's search button showed "Search Ctrl K" but was named "Search" (WCAG 2.5.3 Label in Name). The keyboard hint is hidden with CSS.

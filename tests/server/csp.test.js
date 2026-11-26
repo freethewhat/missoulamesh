@@ -32,11 +32,17 @@ test('collects inline scripts that carry attributes', async () => {
   }
 });
 
-test('policy allows only self, given hashes, and wasm eval', () => {
+test('policy allows self, given hashes, wasm eval, and only the two map hosts', () => {
   const csp = buildCsp(["'sha256-abc'"]);
-  assert.doesNotMatch(csp, /http/);
+  const dir = (name) => csp.split('; ').find((d) => d.startsWith(`${name} `));
   assert.match(csp, /default-src 'self'/);
-  assert.match(csp, /script-src 'self' 'sha256-abc' 'wasm-unsafe-eval'/);
+  assert.equal(dir('script-src'), "script-src 'self' 'sha256-abc' 'wasm-unsafe-eval' https://unpkg.com");
+  assert.equal(dir('style-src'), "style-src 'self' 'unsafe-inline' https://unpkg.com");
+  assert.equal(dir('img-src'), "img-src 'self' data: https://unpkg.com https://tile.openstreetmap.org");
+  assert.equal(dir('font-src'), "font-src 'self'");
+  assert.equal(dir('connect-src'), "connect-src 'self'");
+  const hosts = new Set(csp.match(/https:\/\/[^\s;]+/g));
+  assert.deepEqual([...hosts].sort(), ['https://tile.openstreetmap.org', 'https://unpkg.com']);
   assert.match(csp, /form-action 'self'/);
   assert.match(csp, /frame-ancestors 'none'/);
   assert.match(csp, /object-src 'none'/);

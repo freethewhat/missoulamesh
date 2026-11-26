@@ -26,12 +26,17 @@ export async function collectInlineScriptHashes(distDir) {
   return [...hashes].sort();
 }
 
+// The one exception to "self only": the coverage map on /repeaters/ loads Leaflet from unpkg
+// (pinned version, SRI-checked) and map tiles from OpenStreetMap.
+const LEAFLET_CDN = 'https://unpkg.com';
+const OSM_TILES = 'https://tile.openstreetmap.org';
+
 export function buildCsp(scriptHashes) {
   return [
     "default-src 'self'",
-    ['script-src', "'self'", ...scriptHashes, "'wasm-unsafe-eval'"].join(' '),
-    "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data:",
+    ['script-src', "'self'", ...scriptHashes, "'wasm-unsafe-eval'", LEAFLET_CDN].join(' '),
+    `style-src 'self' 'unsafe-inline' ${LEAFLET_CDN}`,
+    `img-src 'self' data: ${LEAFLET_CDN} ${OSM_TILES}`,
     "font-src 'self'",
     "connect-src 'self'",
     "form-action 'self'",

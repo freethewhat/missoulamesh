@@ -30,6 +30,12 @@
   --mm-step-1: #a77bd6;
   --mm-step-1-ink: #160c22;
 
+  /* Coverage map (Repeaters page). --mm-map-bg and --mm-map-road are the land and street colors of the
+     OpenStreetMap tiles as shown in this theme (dark uses a CSS filter); square outlines need 3:1 against both. */
+  --mm-map-bg: #1c1915;
+  --mm-map-road: #0d0d0d;
+  --mm-cov-reached: #bc96e4;
+
   --sl-font: var(--mm-font);
   --sl-color-white: #f3eefa;
   --sl-color-gray-1: #e6def0;
@@ -57,6 +63,10 @@
   --mm-btn-ink: #ffffff;
   --mm-step-1: var(--mm-huckleberry);
   --mm-step-1-ink: #ffffff;
+
+  --mm-map-bg: #f2efe9;
+  --mm-map-road: #ffffff;
+  --mm-cov-reached: #6a2f86;
 
   --sl-color-white: #1e1530;
   --sl-color-gray-1: #2c2240;

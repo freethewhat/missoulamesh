@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { settingsSchema, repeatersSchema, hardwareSchema, roomServerSchema } from '../../src/lib/schemas.js';
+import { settingsSchema, repeatersSchema, hardwareSchema, roomServerSchema, coverageSchema } from '../../src/lib/schemas.js';
 
 const load = (f) => JSON.parse(readFileSync(new URL(`../../src/data/${f}`, import.meta.url)));
 const settings = load('settings.json');
@@ -49,3 +49,23 @@ test('room server public key that is too short is rejected', () => {
   const r = room(); r.publicKey = r.publicKey.slice(0, 10);
   assert.equal(roomServerSchema.safeParse(r).success, false);
 });
+
+const coverage = load('coverage.json');
+test('real coverage.json passes', () => { coverageSchema.parse(coverage); });
+test('coverage cell with a status is rejected (the map only shows replies)', () => {
+  const c = clone(coverage); c.cells[0].status = 'no-reply';
+  assert.equal(coverageSchema.safeParse(c).success, false);
+});
+test('coverage cell without lon is rejected', () => {
+  const c = clone(coverage); delete c.cells[0].lon;
+  assert.equal(coverageSchema.safeParse(c).success, false);
+});
+test('coverage lat 91 is rejected', () => {
+  const c = clone(coverage); c.cells[0].lat = 91;
+  assert.equal(coverageSchema.safeParse(c).success, false);
+});
+test('coverage bad asOf date is rejected', () => {
+  const c = clone(coverage); c.asOf = '2026-02-30';
+  assert.equal(coverageSchema.safeParse(c).success, false);
+});
+

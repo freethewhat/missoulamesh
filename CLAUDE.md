@@ -33,6 +33,7 @@ CI (`.github/workflows/ci-deploy.yml`) runs lint, build, test, e2e, and a Docker
 - `scripts/check-external.js` fails the build if any page loads a resource (script, stylesheet, font, image, embed) from another origin. Outside `<a href>` links are fine.
 - `astro.config.mjs` sets `inlineStylesheets: 'never'` and `assetsInlineLimit: 0` so nothing becomes a `data:` font or inline style that the CSP would block.
 - So: never add third-party CDNs, fonts, or embeds. Self-host everything (fonts come from `@fontsource-variable`). The e2e tests fail on any CSP console error.
+- One exception, chosen on purpose: the coverage map on `/repeaters/` loads Leaflet 1.9.4 from unpkg (pinned, with SRI) and map tiles from `tile.openstreetmap.org`. Both hosts are named in `server/csp.js`, and the two Leaflet files are the only entries in `ALLOWED_RESOURCES` in `scripts/check-external.js`. Do not add more.
 
 **Server.** `server/app.js` (`createApp`, injectable `sendMail`, `csp`, rate limit, and clock for tests) serves `dist/`, sets all security headers, exposes `/api/health`, and handles `POST /api/contact`. The contact form is a plain HTML form post (no client JS). `server/contact.js` validates it (honeypot plus timing check; spam silently goes to the thanks page). `server/mailer.js` sends through Resend. Every result is a 303 redirect to `/contact/thanks/` or `/contact/error/?reason=...`.
 
