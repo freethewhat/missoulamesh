@@ -49,9 +49,9 @@ Every page must pass WCAG 2.2 AA in both light and dark themes. This is a requir
 
 ## Git: ask first
 
-Do not commit or push unless Matt asks in the current conversation. Approval for one commit or push does not cover the next one.
+Do not commit or push unless the user asks in the current conversation. Approval for one commit or push does not cover the next one.
 
-`main` is protected on GitHub. Nobody can push to it directly, and nobody can bypass that. Do the work on a branch, push the branch, and open a PR. The CI `test` job must pass before the PR can merge. Do not merge PRs: Matt merges them. A merge to `main` deploys the live site.
+`main` is protected on GitHub. Nobody can push to it directly, and nobody can bypass that. Do the work on a branch, push the branch, and open a PR. The CI `test` job must pass before the PR can merge. Do not merge PRs: a maintainer reviews and merges them. A merge to `main` deploys the live site.
 
 ## Deploy
 
