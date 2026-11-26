@@ -65,3 +65,11 @@ export const coverageSchema = z.object({
   }).strict()),
 });
 
+// Repeater locations for the coverage map. Location only: strict, so a name or other field fails the build.
+export const repeaterSitesSchema = z.object({
+  note: z.string().optional(),
+  sites: z.array(z.object({
+    lat: z.number().min(-90).max(90),
+    lon: z.number().min(-180).max(180),
+  }).strict()),
+});

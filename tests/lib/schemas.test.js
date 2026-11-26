@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { settingsSchema, repeatersSchema, hardwareSchema, roomServerSchema, coverageSchema } from '../../src/lib/schemas.js';
+import { settingsSchema, repeatersSchema, hardwareSchema, roomServerSchema, coverageSchema, repeaterSitesSchema } from '../../src/lib/schemas.js';
 
 const load = (f) => JSON.parse(readFileSync(new URL(`../../src/data/${f}`, import.meta.url)));
 const settings = load('settings.json');
@@ -69,3 +69,14 @@ test('coverage bad asOf date is rejected', () => {
   assert.equal(coverageSchema.safeParse(c).success, false);
 });
 
+
+const sites = load('repeater-sites.json');
+test('real repeater-sites.json passes', () => { repeaterSitesSchema.parse(sites); });
+test('repeater site with a name is rejected (the map shows no names)', () => {
+  const r = clone(sites); r.sites[0].name = 'HT_V4_1';
+  assert.equal(repeaterSitesSchema.safeParse(r).success, false);
+});
+test('repeater site lon 200 is rejected', () => {
+  const r = clone(sites); r.sites[0].lon = 200;
+  assert.equal(repeaterSitesSchema.safeParse(r).success, false);
+});

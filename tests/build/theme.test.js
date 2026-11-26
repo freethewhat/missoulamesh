@@ -53,7 +53,7 @@ const cssVar = (block, name) => {
 for (const [theme, block] of Object.entries(blocks)) {
   test(`coverage map colors pass contrast in ${theme} theme`, () => {
     for (const under of ['--mm-map-bg', '--mm-map-road']) {
-      for (const name of ['--mm-cov-reached']) {
+      for (const name of ['--mm-cov-reached', '--mm-map-repeater']) {
         const r = contrast(cssVar(block, under), cssVar(block, name));
         assert.ok(r >= 3, `${name} on ${under} is ${r.toFixed(2)}:1, needs 3:1`);
       }
