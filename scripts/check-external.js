@@ -1,10 +1,12 @@
 // Post-build: fail if any built page or stylesheet loads a resource from another site.
-// Outside links (<a href>) are fine; scripts, styles, fonts, images, and embeds are not.
+// Outside links (<a href>) are fine; scripts, styles, fonts, images, and embeds are not,
+// except the pinned Leaflet files the coverage map loads (see server/csp.js). Map tiles load at run time, not from HTML.
 import { readdir, readFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const SITE = 'https://missoulamesh.org';
+export const ALLOWED_RESOURCES = ['https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'];
 const RESOURCE_RELS = new Set(['stylesheet', 'icon', 'shortcut', 'apple-touch-icon', 'preload', 'modulepreload', 'manifest', 'prefetch']);
 
 function isExternal(url, siteOrigin) {
@@ -35,7 +37,7 @@ export function findExternalResources(html, siteOrigin = SITE) {
       const srcset = attr(tag, 'srcset');
       if (srcset) urls.push(...srcset.split(',').map((s) => s.trim().split(/\s+/)[0]));
     }
-    for (const u of urls) if (u && isExternal(u, siteOrigin)) found.push(u);
+    for (const u of urls) if (u && isExternal(u, siteOrigin) && !ALLOWED_RESOURCES.includes(u.trim())) found.push(u);
   }
   return found;
 }
@@ -68,5 +70,5 @@ if (import.meta.url === pathToFileURL(process.argv[1] || '').href) {
     console.error(`check-external: ${problems.length} third-party resource(s) found:\n${problems.join('\n')}`);
     process.exit(1);
   }
-  console.log('check-external: no third-party resources');
+  console.log('check-external: no third-party resources besides the pinned Leaflet files');
 }

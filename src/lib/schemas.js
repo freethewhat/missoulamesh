@@ -53,3 +53,15 @@ export const roomServerSchema = z.object({
   publicKey: z.string().regex(/^[0-9A-Fa-f]{64}$/, 'public key is 64 hex characters'),
   nearRepeater: z.string().regex(/^[a-z0-9-]+$/),
 });
+
+// Squares where a repeater replied. lat/lon is the south-west corner of a MeshMapper grid square.
+// The map shows only replies, so a cell has no status field (strict: an extra field fails the build).
+export const coverageSchema = z.object({
+  asOf: isoDate,
+  source: z.string().min(1),
+  cells: z.array(z.object({
+    lat: z.number().min(-90).max(90),
+    lon: z.number().min(-180).max(180),
+  }).strict()),
+});
+

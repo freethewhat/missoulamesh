@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { findExternalResources, findExternalCss } from '../../scripts/check-external.js';
+import { findExternalResources, findExternalCss, ALLOWED_RESOURCES } from '../../scripts/check-external.js';
 
 test('CDN script is flagged', () => {
   assert.equal(findExternalResources('<script src="https://cdn.x/a.js"></script>').length, 1);
@@ -31,4 +31,15 @@ test('canonical and alternate links are not flagged', () => {
 });
 test('CSS url() and @import to other sites are flagged', () => {
   assert.equal(findExternalCss("@import url('https://fonts.googleapis.com/x'); a{background:url(https://cdn.x/i.png)} b{background:url(/ok.png)}").length, 2);
+});
+
+// The coverage map loads Leaflet from unpkg (pinned, with SRI) and OpenStreetMap tiles. Nothing else.
+test('pinned Leaflet from unpkg is allowed', () => {
+  assert.equal(findExternalResources('<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">').length, 0);
+});
+test('other unpkg packages are still flagged', () => {
+  assert.equal(findExternalResources('<script src="https://unpkg.com/other@1.0.0/x.js"></script>').length, 1);
+});
+test('allow list is only the pinned Leaflet files', () => {
+  assert.deepEqual(ALLOWED_RESOURCES, ['https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js']);
 });

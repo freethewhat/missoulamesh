@@ -38,7 +38,7 @@ export default defineConfig({
             { label: 'Join the mesh', link: '/start/' },
             { label: 'What to buy', link: '/hardware/' },
             { label: 'Device settings', link: '/settings/' },
-            { label: 'Repeaters', link: '/repeaters/' },
+            { label: 'Repeaters and coverage', link: '/repeaters/' },
             { label: 'Help', link: '/help/' },
           ],
         },

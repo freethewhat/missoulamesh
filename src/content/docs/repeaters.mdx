@@ -1,12 +1,19 @@
 ---
-title: Repeaters
-description: MeshCore repeaters in the Missoula Valley, listed by neighborhood.
+title: Repeaters and coverage
+description: MeshCore repeaters in the Missoula Valley, listed by neighborhood, and a coverage map of where people have reached the mesh.
 ---
 import RepeaterList from '../../components/RepeaterList.astro';
+import CoverageMap from '../../components/CoverageMap.astro';
 
 A **repeater** is a MeshCore radio that passes messages along so they travel farther. Your device needs to hear at least one repeater to reach other people.
 
 The Missoula mesh is a small network. This list shows the area each repeater covers, not exact locations.
+
+## Coverage map
+
+<CoverageMap>Most of the south side, around the Lewis and Clark and Franklin to the Fort neighborhoods, reached a repeater. So did parts of Orchard Homes. Other areas have not been tested yet.</CoverageMap>
+
+## Repeater list
 
 <RepeaterList />
 
