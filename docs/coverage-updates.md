@@ -23,7 +23,7 @@ The coverage map on `/repeaters/#coverage-map` draws the squares in `src/data/co
 
 ## What the script counts
 
-- Reply squares: teal, green, and purple. Red and grey (no reply) are ignored.
+- Reply squares: teal, green, and purple, on the light or dark map. Red and grey (no reply) are ignored.
 - `scripts/coverage-skip.json` lists squares it never adds: old I-90 reports from before our 2026-11-26 drive. Add squares there to keep them off the map.
 - To remove a square, delete its line from `src/data/coverage.json`.
 
