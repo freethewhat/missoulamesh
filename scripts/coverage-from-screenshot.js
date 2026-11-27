@@ -21,9 +21,10 @@ const MIN_MATCHES = 5; // squares that must line up with the existing map
 export function isReplyColor(r, g, b) {
   const teal = r < 150 && g > 170 && b > 180 && b - r > 50 && b - g < 35;
   const darkTeal = r < 135 && g - r > 40 && b - r > 30 && Math.abs(g - b) < 25 && g > 140;
+  const nightTeal = r < 70 && g > 70 && g - r > 50 && b - g >= 0 && b - g < 25; // MeshMapper dark map
   const purple = r > 150 && b > 200 && g < 170;
   const green = g - r > 60 && g - b > 60 && g > 140;
-  return teal || darkTeal || purple || green;
+  return teal || darkTeal || nightTeal || purple || green;
 }
 
 function replyMask({ px, w, h, channels }, crop) {

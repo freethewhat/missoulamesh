@@ -1,6 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { readPage, pageText, mainHtml } from './helpers.js';
+
+const coverage = JSON.parse(readFileSync(new URL('../../src/data/coverage.json', import.meta.url), 'utf8'));
+const asOfText = new Date(`${coverage.asOf}T12:00:00Z`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 
 test('Lewis and Clark repeater is on the air', () => {
   const html = readPage('/repeaters/');
@@ -60,7 +64,7 @@ test('map element carries every coverage square', () => {
   const m = mapDiv().match(/data-cells="([^"]*)"/);
   assert.ok(m, 'data-cells');
   const cells = JSON.parse(decode(m[1]));
-  assert.equal(cells.length, 77);
+  assert.equal(cells.length, coverage.cells.length);
   assert.ok(cells.every((c) => typeof c.lat === 'number' && typeof c.lon === 'number'));
 });
 
@@ -72,7 +76,8 @@ test('coverage map has legend, date, and summary as page text, and no credit lin
   const t = pageText('/repeaters/');
   assert.match(t, /Reached a repeater/);
   assert.doesNotMatch(t, /No reply/);
-  assert.match(t, /Last updated Nov 26, 2026\. Coverage changes with weather, hills, and your antenna, so treat this as a rough guide\./);
+  assert.ok(t.includes(`Last updated ${asOfText}.`), asOfText);
+  assert.match(t, /Last updated [A-Z][a-z]{2} \d{1,2}, \d{4}\. Coverage changes with weather, hills, and your antenna, so treat this as a rough guide\./);
   assert.doesNotMatch(t, /driving around/);
   assert.match(t, /Other areas have not been tested yet\./);
   assert.doesNotMatch(t, /Coverage data: MeshMapper/);

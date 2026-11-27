@@ -16,6 +16,11 @@ function fakeShot({ w = 420, h = 320, pitchX = 16.69, pitchY = 17.165, phaseX = 
 test('teal, green, and purple squares count as replies; red, grey, roads, and paper do not', () => {
   assert.equal(isReplyColor(123, 195, 203), true); // teal
   assert.equal(isReplyColor(90, 160, 165), true); // darker teal
+  assert.equal(isReplyColor(18, 94, 106), true); // teal on the dark map
+  assert.equal(isReplyColor(40, 118, 132), true); // teal on the dark map, lighter
+  assert.equal(isReplyColor(109, 23, 31), false); // red on the dark map
+  assert.equal(isReplyColor(64, 69, 74), false); // grey on the dark map
+  assert.equal(isReplyColor(12, 12, 12), false); // dark map background
   assert.equal(isReplyColor(173, 146, 214), true); // purple
   assert.equal(isReplyColor(76, 175, 80), true); // green
   assert.equal(isReplyColor(197, 74, 81), false); // red
