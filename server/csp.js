@@ -26,7 +26,7 @@ export async function collectInlineScriptHashes(distDir) {
   return [...hashes].sort();
 }
 
-// The one exception to "self only": the coverage map on /repeaters/ loads Leaflet from unpkg
+// The one exception to "self only": the coverage map (on / and /repeaters/) loads Leaflet from unpkg
 // (pinned version, SRI-checked) and map tiles from OpenStreetMap.
 const LEAFLET_CDN = 'https://unpkg.com';
 const OSM_TILES = 'https://tile.openstreetmap.org';

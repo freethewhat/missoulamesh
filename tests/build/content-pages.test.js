@@ -28,17 +28,29 @@ test('FAQ links to join', () => {
 test('start page is called Join the mesh', () => {
   assert.match(readPage('/start/'), /<h1[^>]*>Join the mesh<\/h1>/);
 });
-test('home shows the compact repeater list', () => {
+test('home shows the blurb beside the map, then the join steps as cards', () => {
   const h = readPage('/');
-  assert.match(h, /<ul class="mm-repeaters"/);
-  assert.ok(pageText('/').includes('Lewis and Clark neighborhood'));
-  assert.ok(!pageText('/').includes('MSO_LNC_MM_001'), 'compact list hides details');
+  const intro = h.indexOf('class="mm-intro"');
+  assert.ok(intro > -1, 'mm-intro');
+  assert.ok(intro < h.indexOf('a small network'));
+  assert.ok(h.indexOf('a small network') < h.indexOf('mm-coverage-map'));
+  assert.ok(h.indexOf('mm-coverage-map') < h.indexOf('Join in three steps'));
+  assert.match(h, /<ol class="mm-steps mm-steps--cards">/);
+  assert.match(h, /mm-coverage-figure--compact/);
+  assert.match(h, /<h2[^>]*>What is MeshCore\?<\/h2>/);
+  assert.match(h, /<h2[^>]*>Where the mesh reaches<\/h2>/);
+  assert.ok(h.indexOf('What is MeshCore?') < h.indexOf('a small network'));
+  assert.ok(h.indexOf('Where the mesh reaches') < h.indexOf('mm-coverage-map'));
+  assert.match(pageText('/'), /The map shows where people have reached a repeater so far\. Coverage changes with hills, weather, and your antenna\./);
+  assert.doesNotMatch(h, /<ul class="mm-repeaters"/);
+  assert.ok(link(h, '/repeaters/', 'repeater list'));
+  for (const href of ['/hardware/', '/settings/', '/start/', '/contact/']) assert.match(h, new RegExp(`href="${href}"`), href);
 });
-test('home shows repeaters and join steps side by side', () => {
-  const h = readPage('/');
-  assert.match(h, /<div class="mm-columns">[\s\S]*<h2[^>]*>Repeaters<\/h2>[\s\S]*<h2[^>]*>Join in three steps<\/h2>/);
-  assert.match(h, /<ol class="mm-steps mm-steps--compact">/);
-  for (const href of ['/hardware/', '/settings/', '/start/']) assert.match(h, new RegExp(`href="${href}"`), href);
+test('home map has the legend but no last-updated line', () => {
+  const t = pageText('/');
+  assert.match(t, /Reached a repeater/);
+  assert.doesNotMatch(t, /Last updated/);
+  assert.match(pageText('/repeaters/'), /Last updated/);
 });
 test('home says the network is small', () => {
   assert.match(pageText('/'), /a small network/);
@@ -125,4 +137,10 @@ test('FAQ links to hardware', () => {
 test('FAQ privacy lists what not to post', () => {
   const t = pageText('/faq/').toLowerCase();
   for (const v of ['home address', 'away from home', 'passwords', 'phone numbers']) assert.ok(t.includes(v), v);
+});
+test('home map name does not point to a summary the home page lacks', () => {
+  const label = readPage('/').match(/class="mm-coverage-map[^"]*"[^>]*aria-label="([^"]*)"/)?.[1] ?? '';
+  assert.ok(label, 'aria-label');
+  assert.doesNotMatch(label, /summary below/i);
+  assert.match(label, /repeater list/i);
 });

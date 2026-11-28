@@ -16,29 +16,40 @@ head:
 hero:
   title: Missoula Mesh
 ---
-import RepeaterList from '../../components/RepeaterList.astro';
+import CoverageMap from '../../components/CoverageMap.astro';
+
+<div class="mm-intro">
+<div class="mm-intro-head">
+
+## What is MeshCore?
+
+</div>
+<div class="mm-intro-text">
 
 **MeshCore** lets small radios pass text messages to each other with no cell service and no internet. Each message hops from radio to radio until it gets where it is going.
 
-The Missoula mesh is a small network. Every new radio makes it better.
+The Missoula mesh is a small network, built by neighbors. Every new radio makes it better.
 
-<div class="mm-columns">
-<div>
+The map shows where people have reached a repeater so far. Coverage changes with hills, weather, and your antenna.
 
-## Repeaters
-
-<RepeaterList compact />
-
-See the [full repeater list](/repeaters/) and the [coverage map](/repeaters/#coverage-map).
-
-<a href="/contact/">Already running MeshCore in the valley? Tell us.</a>
+See the [repeater list](/repeaters/) for details.
 
 </div>
-<div>
+<div class="mm-intro-maphead">
+
+## Where the mesh reaches
+
+</div>
+<div class="mm-intro-map">
+
+<CoverageMap compact />
+
+</div>
+</div>
 
 ## Join in three steps
 
-<ol class="mm-steps mm-steps--compact">
+<ol class="mm-steps mm-steps--cards">
   <li>Get a MeshCore radio. See [what to buy](/hardware/).</li>
   <li>Put the companion firmware on it and pair it with the MeshCore app.</li>
   <li>Set the [radio settings](/settings/) and join the #missoula channel.</li>
@@ -46,5 +57,4 @@ See the [full repeater list](/repeaters/) and the [coverage map](/repeaters/#cov
 
 The [full guide](/start/) takes about 15 minutes.
 
-</div>
-</div>
+[Already running MeshCore in the valley? Tell us.](/contact/)

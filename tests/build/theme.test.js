@@ -60,3 +60,9 @@ for (const [theme, block] of Object.entries(blocks)) {
     }
   });
 }
+
+test('home step cards have a fill that differs from the page', () => {
+  const dir = join(DIST, '_astro');
+  const css = readdirSync(dir).filter((f) => f.endsWith('.css')).map((f) => readFileSync(join(dir, f), 'utf8')).join('\n');
+  assert.match(css, /mm-steps--cards>li\{[^}]*background:var\(--sl-color-gray-6\)/);
+});
