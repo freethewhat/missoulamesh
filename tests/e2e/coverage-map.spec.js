@@ -64,10 +64,16 @@ test('map takes keyboard focus and zooms with the + key', async ({ page }) => {
   await expect(map).toBeFocused();
   const zoomIn = map.locator('.leaflet-control-zoom-in');
   await expect(zoomIn).toBeVisible();
-  const before = await map.locator('.leaflet-overlay-pane path').first().boundingBox();
+  // Measure the square nearest the middle of the map: squares near the edge leave the view when it zooms in.
+  const squares = map.locator('.leaflet-overlay-pane path:not(.mm-repeater-pin)');
+  const box = await map.boundingBox();
+  const mid = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+  const boxes = await squares.evaluateAll((els) => els.map((e) => { const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, w: r.width }; }));
+  const i = boxes.reduce((best, b, j) => (Math.hypot(b.x - mid.x, b.y - mid.y) < Math.hypot(boxes[best].x - mid.x, boxes[best].y - mid.y) ? j : best), 0);
+  const before = await squares.nth(i).boundingBox();
   await page.keyboard.press('+');
   await page.waitForTimeout(600);
-  const after = await map.locator('.leaflet-overlay-pane path').first().boundingBox();
+  const after = await squares.nth(i).boundingBox();
   expect(after.width).toBeGreaterThan(before.width);
 });
 

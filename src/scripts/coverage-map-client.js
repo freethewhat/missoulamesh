@@ -33,6 +33,7 @@ export async function startCoverageMap(el) {
     minZoom: 10,
     maxZoom: 19,
     scrollWheelZoom: false, // the mouse wheel scrolls the page, not the map
+    zoomSnap: 0.5, // half steps, so the squares fill a short map box (home page) instead of falling back a whole step
   });
   map.attributionControl.setPrefix(false);
   L.tileLayer(TILES, { maxZoom: 19, attribution: TILE_CREDIT }).addTo(map);

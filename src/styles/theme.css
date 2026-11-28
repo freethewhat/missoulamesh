@@ -176,17 +176,43 @@ h1#_top { color: var(--mm-heading); }
 .mm-steps > li:nth-child(3n + 2)::before { background: var(--mm-river); color: #ffffff; }
 .mm-steps > li:nth-child(3n)::before { background: var(--mm-larch); color: var(--mm-larch-ink); }
 
-/* Home page: repeaters and join steps side by side. They stack on narrow screens. */
-.sl-markdown-content .mm-columns {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
-  gap: 1.5rem 3rem;
-  margin-top: 2rem;
+/* Home page: "What is MeshCore?" beside "Where the mesh reaches". On wide screens the two headings share
+   one grid row (so they end on the same line even if one wraps), and the map row matches the text height.
+   On narrow screens everything stacks in source order: heading, text, heading, map. */
+.sl-markdown-content .mm-intro { display: grid; gap: 0 2.5rem; }
+.sl-markdown-content .mm-intro > * { margin-top: 0; min-width: 0; }
+.sl-markdown-content .mm-intro > * > :first-child { margin-top: 0; }
+.sl-markdown-content .mm-intro-text,
+.sl-markdown-content .mm-intro-map { margin-top: 1rem; }
+.sl-markdown-content .mm-intro-maphead { margin-top: 2rem; }
+.sl-markdown-content .mm-intro-text { font-size: 1.125rem; line-height: 1.6; }
+@media (min-width: 50rem) {
+  .sl-markdown-content .mm-intro {
+    grid-template-columns: 1fr 1.3fr;
+    grid-template-areas: 'head maphead' 'text map';
+    align-items: stretch;
+    padding-bottom: 2rem; /* room for the map legend, which hangs below the map */
+  }
+  .sl-markdown-content .mm-intro-head { grid-area: head; align-self: end; }
+  .sl-markdown-content .mm-intro-maphead { grid-area: maphead; align-self: end; margin-top: 0; }
+  .sl-markdown-content .mm-intro-text { grid-area: text; }
+  .sl-markdown-content .mm-intro-map { grid-area: map; }
 }
-.sl-markdown-content .mm-columns > * { margin-top: 0; min-width: 0; }
-.sl-markdown-content .mm-columns > * > :first-child { margin-top: 0; }
-.mm-steps--compact > li { margin: 1rem 0; }
-.mm-steps--compact > li:first-child { margin-top: 0.75rem; }
+
+/* Home page: the join steps as a row of cards, number on top. */
+.sl-markdown-content .mm-steps--cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 1rem;
+}
+.sl-markdown-content .mm-steps--cards > li {
+  margin: 0;
+  padding: 1rem;
+  background: var(--sl-color-gray-6);
+  border: 1px solid var(--mm-line);
+  border-radius: 0.5rem;
+}
+.mm-steps--cards > li::before { position: static; margin-bottom: 0.5rem; }
 
 /* Home hero: a purple sky over three teal ridges, with gold radio waves spreading from the summit. */
 .mm-hero {

@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { readPage, pageText, mainHtml } from './helpers.js';
+import { readPage, pageText, mainHtml, ROUTES } from './helpers.js';
 
 const coverage = JSON.parse(readFileSync(new URL('../../src/data/coverage.json', import.meta.url), 'utf8'));
 const asOfText = new Date(`${coverage.asOf}T12:00:00Z`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
@@ -90,8 +90,11 @@ test('Leaflet loads from unpkg pinned to 1.9.4 with integrity checks', () => {
   assert.match(h, /<script[^>]+src="https:\/\/unpkg\.com\/leaflet@1\.9\.4\/dist\/leaflet\.js"[^>]+integrity="sha256-20nQCchB9co0qIjJZRGuk2\/Z9VM\+kNiyxNV1lvTlZBo="[^>]*crossorigin/);
 });
 
-test('only the repeaters page loads Leaflet', () => {
-  assert.doesNotMatch(readPage('/'), /unpkg\.com/);
+test('only the home and repeaters pages load Leaflet', () => {
+  for (const route of ROUTES) {
+    const loads = /unpkg\.com/.test(readPage(route));
+    assert.equal(loads, route === '/' || route === '/repeaters/', route);
+  }
 });
 
 test('map element carries every repeater location, with no names', () => {
@@ -124,10 +127,6 @@ test('menu has one entry for repeaters and coverage', () => {
   const h = readPage('/faq/');
   assert.match(h, /<a href="\/repeaters\/"[^>]*>\s*<span[^>]*>Repeaters and coverage<\/span>/);
   assert.doesNotMatch(h, /<span[^>]*>Coverage map<\/span>/);
-});
-
-test('home page links to the coverage map', () => {
-  assert.match(mainHtml('/'), /<a href="\/repeaters\/#coverage-map">coverage map<\/a>/);
 });
 
 test('no zoom tip under the map', () => {
